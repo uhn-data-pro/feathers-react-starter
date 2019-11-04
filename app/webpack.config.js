@@ -2,7 +2,6 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const nodeExternals = require('webpack-node-externals')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -19,12 +18,10 @@ const nonEmptyString = makeValidator((input) => {
 
 const stringifyKeys = obj => (sum, key) => Object.assign({}, sum, { [key]: JSON.stringify(obj[key]) })
 
-const isNodeModule = module => module.context && module.context.indexOf('node_modules') !== -1
-
 const PUBLIC_PATH = '/'
 
 module.exports = function (opts) {
-  const { wba, platform } = opts
+  const { platform } = opts
   const IS_BROWSER = platform === 'browser'
   const IS_SERVER = platform === 'node'
 
@@ -49,16 +46,6 @@ module.exports = function (opts) {
     ),
     { strict: true  }
   )
-
-  console.log(`[webpack] Constructing configuration for platform ${platform}`)
-  console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
-  console.log(`[webpack] API_BASE_URL=${env.API_BASE_URL}`)
-
-  if (IS_BROWSER) {
-    console.log(`[webpack] STATIC_ROOT=${env.STATIC_ROOT}`)
-  } else {
-    console.log(`[webpack] INTERNAL_API_BASE_URL=${env.INTERNAL_API_BASE_URL}`)
-  }
 
   /*
     PLUGINS
@@ -88,16 +75,6 @@ module.exports = function (opts) {
         template: './src/assets/template.html',
         inject: false
       })
-    )
-  }
-
-  if (IS_BROWSER && env.isProduction && wba) {
-    plugins.push( ...[new BundleAnalyzerPlugin()] )
-  }
-
-  if (IS_SERVER) {
-    plugins.push(
-      new webpack.BannerPlugin({ banner: 'require("source-map-support").install()', raw: true, entryOnly: false })
     )
   }
 
@@ -152,7 +129,7 @@ module.exports = function (opts) {
 
   const config = {
     mode: process.env.NODE_ENV,
-    entry: IS_BROWSER ? [ './src/client.js' ] : './src/server.js',
+    entry: IS_BROWSER ? './src/client.js' : './src/server.js',
     devtool: env.isProduction
       ? 'cheap-module-source-map'
       : 'cheap-module-eval-source-map',
