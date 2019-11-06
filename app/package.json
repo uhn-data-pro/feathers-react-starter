@@ -9,7 +9,7 @@
     "build-client": "webpack --env.platform=browser",
     "build-server": "webpack --env.platform=node",
     "style": "eslint './src/**/*.js' './src/**/*.jsx'",
-    "dist:clean": "ls -t dist/main.*.js | tail -n +2 | xargs -r rm --; ls -t dist/vendor.*.js | tail -n +2 | xargs -r rm --;"
+    "dist:clean": "ls -t dist/main.*.js | tail -n +2 | xargs -r rm --;"
   },
   "dependencies": {
     "@feathersjs/authentication": "^4.3.0",
