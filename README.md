@@ -27,7 +27,7 @@ docker-compose -f docker-compose.yml logs --follow api app postgres
 
 Open postgres database:
 ```
-ocker-compose -f docker-compose.yml exec postgres psql -U project-name project-name
+docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name
 ```
 
 ## Customization and Production deployment
