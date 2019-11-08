@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const envalid = require('envalid')
 const { makeValidator } = envalid
+const TerserPlugin = require('terser-webpack-plugin');
 
 const nonEmptyString = makeValidator((input) => {
   if (typeof input === 'string' && input !== '') {
@@ -138,6 +139,10 @@ module.exports = function (opts) {
       publicPath: PUBLIC_PATH,
       filename: IS_BROWSER ? '[name].[chunkhash].js' : 'www',
       libraryTarget: IS_BROWSER ? 'var' : 'commonjs2',
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [new TerserPlugin()],
     },
     target: IS_BROWSER ? 'web' : 'node',
     resolve: {

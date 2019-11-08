@@ -4,6 +4,34 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    ["babel-plugin-import", {"libraryName": "@material-ui/core", "libraryDirectory": "", "camel2DashComponentName": false}, "tree-shaking-mui-core"],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/core/styles",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "tree-shaking-mui-styles"
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/core/colors",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "tree-shaking-mui-colors"
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "tree-shaking-mui-icons"
+    ],
     ["@babel/plugin-proposal-decorators", { "legacy": true } ],
     ["@babel/plugin-proposal-class-properties", { "loose": true } ],
     "@babel/plugin-proposal-object-rest-spread"
