@@ -41,6 +41,7 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "babel-loader": "^8.0.6",
+    "babel-plugin-transform-imports": "^2.0.0",
     "chokidar": "^1.6.1",
     "css-loader": "^1.0.1",
     "file-loader": "^0.10.1",
