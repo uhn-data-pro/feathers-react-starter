@@ -11,6 +11,7 @@ services:
       - ./app/static:/home/node/dist
     environment:
       - LOG_FORMAT=dev
+      - NODE_ENV
       - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - INTERNAL_API_BASE_URL=http://api:8000
