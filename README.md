@@ -97,5 +97,7 @@ server {
 }
 ```
 
-## Limitations
-The current webpack version is slightly outdated and should be updated to version 4.
+## Code Splitting
+Code splitting involves breaking down the bundle file into smaller-sized chunks. This can be advantageous in times when certain packages are updated/added, as the client only needs to redownload a certain chunk in their cache, rather than the entire bundle. 
+
+Prior to Webpack v4, this was accomplished with the `CommonsChunkPlugin`, which has since been deprecated and replaced with the `SplitChunksPlugin`. Documentation on code splitting can be found [here](https://webpack.js.org/plugins/split-chunks-plugin/).
