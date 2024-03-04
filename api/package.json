@@ -15,7 +15,7 @@
     "config": "config/"
   },
   "engines": {
-    "node": "^11.0.0",
+    "node": ">= 11.0.0",
     "yarn": ">= 0.18.0"
   },
   "scripts": {
@@ -26,22 +26,22 @@
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
-    "@feathersjs/authentication": "^4.3.0",
-    "@feathersjs/authentication-local": "^4.3.0",
-    "@feathersjs/authentication-oauth": "^4.3.0",
-    "@feathersjs/configuration": "^4.3.0",
-    "@feathersjs/errors": "^4.3.0",
-    "@feathersjs/express": "^4.3.0",
-    "@feathersjs/feathers": "^4.3.0",
-    "@feathersjs/socketio": "^4.3.0",
+    "@feathersjs/authentication": "^4.5.18",
+    "@feathersjs/authentication-local": "^4.5.18",
+    "@feathersjs/authentication-oauth": "^4.5.18",
+    "@feathersjs/configuration": "^4.5.17",
+    "@feathersjs/errors": "^4.5.17",
+    "@feathersjs/express": "^4.5.18",
+    "@feathersjs/feathers": "^4.5.17",
+    "@feathersjs/socketio": "^4.5.18",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "feathers-sequelize": "^6.0.1",
-    "helmet": "^3.20.0",
-    "pg": "^7.12.1",
-    "sequelize": "^5.16.0",
+    "feathers-sequelize": "^6.4.0",
+    "helmet": "^3.23.3",
+    "nodemon": "^1.19.4",
+    "pg": "^7.18.2",
+    "sequelize": "^5.22.5",
     "serve-favicon": "^2.5.0",
-    "winston": "^3.0.0",
-    "nodemon": "^1.11.0"
+    "winston": "^3.12.0"
   }
 }

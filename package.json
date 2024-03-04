@@ -13,8 +13,8 @@
     "psql": "docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name"
   },
   "dependencies": {
-    "node-base64-image": "^1.0.6",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "node-base64-image": "^1.0.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }
