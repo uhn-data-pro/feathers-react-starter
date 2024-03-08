@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-export default function Login(props) {
+export interface LoginProps {
+	authenticate: (options: any) => Promise<void>;
+}
+
+export default function Login({ authenticate }: LoginProps) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -35,7 +39,7 @@ export default function Login(props) {
 				<Button
 					variant='contained'
 					color='secondary'
-					onClick={() => props.authenticate({ email, password })}
+					onClick={() => authenticate({ email, password })}
 					style={{ width: '100%' }}
 				>
 					Login
