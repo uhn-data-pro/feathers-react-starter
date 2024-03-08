@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "esnext",
+		"lib": ["es2020", "dom"],
+		"jsx": "react",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"declaration": true,
+		"outDir": "./lib",
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "**/__tests__/*"],
+}
