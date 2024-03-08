@@ -1,147 +1,145 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 
 import app from 'FRS/feathers-client.js';
-import responsive from 'FRS/components/responsive.jsx';
+// import responsive from 'FRS/components/responsive.jsx';
 import Login from 'FRS/components/login.jsx';
 import Registration from 'FRS/components/registration.jsx';
 
-@responsive
-export default class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isAuthenticated: false,
-			isLoading: true,
-			snackBarOpen: false,
-			snackBarMessage: null,
-		};
-	}
+export default function App() {
+	/* const [current, setCurrent] = useState({
+		isAuthenticated: false,
+		isLoading: true,
+		snackBarOpen: false,
+		snackBarMessage: null,
+	}); */
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+	const [snackBarOpen, setSnackBarOpen] = useState(false);
+	const [snackBarMessage, setSnackBarMessage] = useState(null);
 
-	authenticate = (options) => {
-		return app
-			.authenticate({ strategy: 'local', ...options })
-			.then(() => this.setState({ isAuthenticated: true }))
-			.catch((err) =>
-				this.setState({
-					isAuthenticated: false,
-					snackBarOpen: true,
-					snackBarMessage:
-						'Login failed, please check your email and/or password',
-				})
-			);
+	const authenticate = (options) => {
+		try {
+			return app
+				.authenticate({ strategy: 'local', ...options })
+				.then(() => setIsAuthenticated(true))
+				.catch((err) => {
+					setIsAuthenticated(false);
+					setSnackBarOpen(true);
+					setSnackBarMessage(
+						'Login failed, please check your email and/or password'
+					);
+				});
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
-	handleCloseSnackBar = () => this.setState({ snackBarOpen: false });
+	const handleCloseSnackBar = () => setSnackBarOpen(false);
 
-	componentDidMount() {
-		return app.authentication
+	useEffect(() => {
+		app.authentication
 			.getAccessToken()
 			.then((accessToken) => {
 				if (accessToken) {
-					return app
-						.reAuthenticate()
-						.then(() => this.setState({ isAuthenticated: true }));
+					return app.reAuthenticate().then(() => setIsAuthenticated(true));
 				}
 			})
-			.then(() => this.setState({ isLoading: false }));
-	}
+			.then(() => setIsLoading(false));
+	}, []);
 
-	render() {
-		const { onMobile } = this.props;
-		const { isAuthenticated, isLoading, snackBarOpen, snackBarMessage } =
-			this.state;
+	const onMobile = false;
 
-		const textStyle = {
-			fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
-			fontSize: 22,
-			fontWeight: 100,
-		};
+	const textStyle = {
+		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+		fontSize: 22,
+		fontWeight: 100,
+	};
 
-		return (
-			<div
+	return (
+		<div
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				height: '100%',
+				width: '100%',
+				overflow: 'hidden',
+				position: 'absolute',
+			}}
+		>
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+				open={snackBarOpen}
+				autoHideDuration={6000}
+				onClose={handleCloseSnackBar}
+				message={snackBarMessage}
+			/>
+			<Paper
+				elevation={onMobile ? 0 : 3}
 				style={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-					height: '100%',
-					width: '100%',
-					overflow: 'hidden',
-					position: 'absolute',
+					padding: onMobile ? 10 : 20,
+					position: 'relative',
+					minHeight: 500,
+					...(onMobile
+						? { height: '100%', width: '100%', overflow: 'scroll' }
+						: { width: 500 }),
 				}}
 			>
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-					open={snackBarOpen}
-					autoHideDuration={6000}
-					onClose={this.handleCloseSnackBar}
-					message={snackBarMessage}
-				/>
-				<Paper
-					elevation={onMobile ? 0 : 3}
+				<div
 					style={{
-						padding: onMobile ? 10 : 20,
-						position: 'relative',
-						minHeight: 500,
-						...(onMobile
-							? { height: '100%', width: '100%', overflow: 'scroll' }
-							: { width: 500 }),
+						fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+						fontSize: 28,
+						fontWeight: 700,
+						textAlign: 'center',
+						marginTop: onMobile ? 10 : 20,
+						marginBottom: onMobile ? 10 : 40,
 					}}
 				>
+					Project Name
+				</div>
+				{isLoading ? (
 					<div
 						style={{
-							fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
-							fontSize: 28,
-							fontWeight: 700,
-							textAlign: 'center',
-							marginTop: onMobile ? 10 : 20,
-							marginBottom: onMobile ? 10 : 40,
+							position: 'fixed',
+							right: 'calc(50vw - 22px)',
+							top: 'calc(50vh - 22px)',
 						}}
 					>
-						Project Name
+						<CircularProgress />
 					</div>
-					{isLoading ? (
+				) : isAuthenticated ? (
+					<div
+						style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
+					>
+						Congrats, you're now logged in!
+						<button onClick={() => setIsAuthenticated(false)}>Logout</button>
+					</div>
+				) : (
+					<div>
+						<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
+							Already have an account?
+						</div>
+						<Login authenticate={authenticate} />
 						<div
 							style={{
-								position: 'fixed',
-								right: 'calc(50vw - 22px)',
-								top: 'calc(50vh - 22px)',
+								...textStyle,
+								margin: '30px auto',
+								textAlign: 'center',
 							}}
 						>
-							<CircularProgress />
+							OR
 						</div>
-					) : isAuthenticated ? (
-						<div
-							style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
-						>
-							Congrats, you're now logged in!
+						<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
+							Register as a new user
 						</div>
-					) : (
-						<div>
-							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
-								Already have an account?
-							</div>
-							<Login authenticate={this.authenticate} />
-							<div
-								style={{
-									...textStyle,
-									margin: '30px auto',
-									textAlign: 'center',
-								}}
-							>
-								OR
-							</div>
-							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
-								Register as a new user
-							</div>
-							<Registration authenticate={this.authenticate} />
-						</div>
-					)}
-				</Paper>
-			</div>
-		);
-	}
+						<Registration authenticate={authenticate} />
+					</div>
+				)}
+			</Paper>
+		</div>
+	);
 }
