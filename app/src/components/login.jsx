@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import responsive from 'FRS/components/responsive.jsx';
-
 export default function Login(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

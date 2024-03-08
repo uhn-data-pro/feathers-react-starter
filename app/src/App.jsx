@@ -5,37 +5,28 @@ import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 
 import app from 'FRS/feathers-client.js';
-// import responsive from 'FRS/components/responsive.jsx';
 import Login from 'FRS/components/login.jsx';
 import Registration from 'FRS/components/registration.jsx';
 
+import { isMobile } from './utils';
+
 export default function App() {
-	/* const [current, setCurrent] = useState({
-		isAuthenticated: false,
-		isLoading: true,
-		snackBarOpen: false,
-		snackBarMessage: null,
-	}); */
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
 	const [snackBarMessage, setSnackBarMessage] = useState(null);
 
 	const authenticate = (options) => {
-		try {
-			return app
-				.authenticate({ strategy: 'local', ...options })
-				.then(() => setIsAuthenticated(true))
-				.catch((err) => {
-					setIsAuthenticated(false);
-					setSnackBarOpen(true);
-					setSnackBarMessage(
-						'Login failed, please check your email and/or password'
-					);
-				});
-		} catch (err) {
-			console.error(err);
-		}
+		return app
+			.authenticate({ strategy: 'local', ...options })
+			.then(() => setIsAuthenticated(true))
+			.catch((err) => {
+				setIsAuthenticated(false);
+				setSnackBarOpen(true);
+				setSnackBarMessage(
+					'Login failed, please check your email and/or password'
+				);
+			});
 	};
 
 	const handleCloseSnackBar = () => setSnackBarOpen(false);
@@ -51,7 +42,7 @@ export default function App() {
 			.then(() => setIsLoading(false));
 	}, []);
 
-	const onMobile = false;
+	const onMobile = isMobile();
 
 	const textStyle = {
 		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
