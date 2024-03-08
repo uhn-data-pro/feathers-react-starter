@@ -4,24 +4,27 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
 
-import app from 'FRS/feathers-client.js';
+import app from '../feathers-client';
 
-export default function Registration(props) {
+export interface RegistrationProps {
+	authenticate: (options: any) => Promise<void>;
+}
+export default function Registration({ authenticate }: RegistrationProps) {
 	const [newUser, setnewUser] = useState({
 		email: '',
 		password: '',
 		passwordConfirmation: '',
 	});
-	const [error, setError] = useState(null);
+	const [error, setError] = useState('');
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
 	const [snackBarMessage, setSnackBarMessage] = useState('');
 
 	const handleCloseSnackBar = () => setSnackBarOpen(false);
 
-	const handleRegistrationChange = (field, value) =>
+	const handleRegistrationChange = (field: string, value: string) =>
 		setnewUser({ ...newUser, [field]: value });
 
-	const handleRegisterUser = (event) => {
+	const handleRegisterUser = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		const { email, password } = newUser;
 
@@ -32,7 +35,7 @@ export default function Registration(props) {
 		app
 			.service('users')
 			.create({ email, password })
-			.then(() => props.authenticate({ strategy: 'local', email, password }))
+			.then(() => authenticate({ strategy: 'local', email, password }))
 			.catch(() => {
 				setSnackBarOpen(true);
 				setSnackBarMessage('Sorry, this email has already been used');
