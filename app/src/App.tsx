@@ -4,9 +4,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 
-import app from 'FRS/feathers-client.js';
-import Login from 'FRS/components/login.jsx';
-import Registration from 'FRS/components/registration.jsx';
+import app from './feathers-client';
+import Login from './components/login';
+import Registration from './components/registration';
 
 import { isMobile } from './utils';
 
@@ -14,13 +14,13 @@ export default function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
-	const [snackBarMessage, setSnackBarMessage] = useState(null);
+	const [snackBarMessage, setSnackBarMessage] = useState('');
 
-	const authenticate = (options) => {
+	const authenticate = (options: any) => {
 		return app
 			.authenticate({ strategy: 'local', ...options })
 			.then(() => setIsAuthenticated(true))
-			.catch((err) => {
+			.catch(() => {
 				setIsAuthenticated(false);
 				setSnackBarOpen(true);
 				setSnackBarMessage(
@@ -34,7 +34,7 @@ export default function App() {
 	useEffect(() => {
 		app.authentication
 			.getAccessToken()
-			.then((accessToken) => {
+			.then((accessToken: string) => {
 				if (accessToken) {
 					return app.reAuthenticate().then(() => setIsAuthenticated(true));
 				}
