@@ -1,19 +1,43 @@
 {
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    ["babel-plugin-import", {"libraryName": "@material-ui/core", "libraryDirectory": "esm", "camel2DashComponentName": false }, "core"],
-    ["babel-plugin-import", {"libraryName": "@material-ui/icons", "libraryDirectory": "esm", "camel2DashComponentName": false}, "icons"],
-    ["babel-plugin-transform-imports",
-      {
-        "@material-ui/core": {"transform": "@material-ui/core/esm/${member}", "preventFullImport": true},
-        "@material-ui/icons": {"transform": "@material-ui/icons/esm/${member}", "preventFullImport": true}
-      }
-    ],
-    ["@babel/plugin-proposal-decorators", { "legacy": true } ],
-    ["@babel/plugin-proposal-class-properties", { "loose": true } ],
-    "@babel/plugin-proposal-object-rest-spread"
-  ]
+	"presets": [
+		"@babel/preset-env",
+		"@babel/preset-react",
+		"@babel/preset-typescript"
+	],
+	"plugins": [
+		[
+			"babel-plugin-import",
+			{
+				"libraryName": "@mui/material",
+				"libraryDirectory": "esm",
+				"camel2DashComponentName": false
+			},
+			"core"
+		],
+		[
+			"babel-plugin-import",
+			{
+				"libraryName": "@mui/icons-material",
+				"libraryDirectory": "esm",
+				"camel2DashComponentName": false
+			},
+			"icons"
+		],
+		[
+			"babel-plugin-transform-imports",
+			{
+				"@material-ui/core": {
+					"transform": "@mui/material/esm/${member}",
+					"preventFullImport": true
+				},
+				"@material-ui/icons": {
+					"transform": "@mui/icons-material/esm/${member}",
+					"preventFullImport": true
+				}
+			}
+		],
+		["@babel/plugin-proposal-decorators", { "legacy": true }],
+		["@babel/plugin-proposal-class-properties", { "loose": true }],
+		"@babel/plugin-proposal-object-rest-spread"
+	]
 }
