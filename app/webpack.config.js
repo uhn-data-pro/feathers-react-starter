@@ -75,7 +75,6 @@ module.exports = function (opts) {
 				favicon: './src/assets/favicon.ico',
 				filename: '_index.html',
 				template: './src/assets/template.html',
-				inject: false,
 			})
 		);
 	}
@@ -104,9 +103,7 @@ module.exports = function (opts) {
 					use: [
 						{
 							loader: MiniCssExtractPlugin.loader,
-							options: {
-								hmr: process.env.NODE_ENV === 'development',
-							},
+							options: {},
 						},
 						'css-loader',
 					],
@@ -116,12 +113,12 @@ module.exports = function (opts) {
 
 	const filesRule = {
 		test: /\.(png|svg|gif|jpe?g)$/,
-		loader: 'file-loader',
-		options: {
-			emitFile: IS_BROWSER,
+		type: 'asset/resource',
+		generator: {
+			filename: '[name].[hash:6].[ext]',
 			publicPath: PUBLIC_PATH + 'images/',
 			outputPath: 'images/',
-			name: '[name].[hash:6].[ext]',
+			emit: IS_BROWSER,
 		},
 	};
 
@@ -139,7 +136,10 @@ module.exports = function (opts) {
 			path: IS_BROWSER ? env.STATIC_ROOT : path.resolve(__dirname, 'bin'),
 			publicPath: PUBLIC_PATH,
 			filename: IS_BROWSER ? '[name].[chunkhash].js' : 'www',
-			libraryTarget: IS_BROWSER ? 'var' : 'commonjs2',
+			library: {
+				name: 'TestName',
+				type: IS_BROWSER ? 'var' : 'commonjs2',
+			},
 		},
 		optimization: {
 			minimize: true,
@@ -147,7 +147,7 @@ module.exports = function (opts) {
 		},
 		target: IS_BROWSER ? 'web' : 'node',
 		resolve: {
-			extensions: ['.tsx', '.ts', '.js'],
+			extensions: ['.tsx', '.ts', '.js', '.jsx'],
 			alias: {
 				FRS: path.resolve(__dirname, './src'),
 				react: path.resolve(__dirname, './node_modules', 'react'),
