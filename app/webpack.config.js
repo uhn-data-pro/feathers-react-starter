@@ -137,7 +137,7 @@ module.exports = function (opts) {
 			publicPath: PUBLIC_PATH,
 			filename: IS_BROWSER ? '[name].[chunkhash].js' : 'www',
 			library: {
-				name: 'TestName',
+				name: 'ProjectLib',
 				type: IS_BROWSER ? 'var' : 'commonjs2',
 			},
 		},
