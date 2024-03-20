@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Button, TextField } from '@shopify/polaris';
 
 export interface LoginProps {
 	authenticate: (options: any) => Promise<void>;
@@ -14,33 +13,27 @@ export default function Login({ authenticate }: LoginProps) {
 	return (
 		<div style={{ padding: '0 20px' }}>
 			<TextField
-				fullWidth
-				required
+				autoComplete='true'
 				id='email-local'
 				label='Email'
-				margin='normal'
-				onChange={(event) => setEmail(event.target.value)}
+				onChange={(value) => setEmail(value)}
 				type='email'
-				variant='outlined'
 				value={email}
 			/>
 			<TextField
-				fullWidth
-				required
+				autoComplete='true'
 				id='password-local'
 				label='Password'
-				margin='normal'
-				onChange={(event) => setPassword(event.target.value)}
+				onChange={(value) => setPassword(value)}
 				type='password'
-				variant='outlined'
 				value={password}
 			/>
 			<div style={{ textAlign: 'center', marginBottom: 20, marginTop: 16 }}>
 				<Button
-					variant='contained'
-					color='secondary'
+					variant='primary'
+					fullWidth
+					size='large'
 					onClick={() => authenticate({ email, password })}
-					style={{ width: '100%' }}
 				>
 					Login
 				</Button>

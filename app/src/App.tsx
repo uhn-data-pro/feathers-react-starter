@@ -3,12 +3,16 @@ import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
 
 import app from './feathers-client';
 import Login from './components/login';
 import Registration from './components/registration';
 
 import { isMobile } from './utils';
+import '@shopify/polaris/build/esm/styles.css';
+import translations from '@shopify/polaris/locales/en.json';
+import { AppProvider } from '@shopify/polaris';
 
 export default function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -51,86 +55,88 @@ export default function App() {
 	};
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				height: '100%',
-				width: '100%',
-				overflow: 'hidden',
-				position: 'absolute',
-			}}
-		>
-			<Snackbar
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-				open={snackBarOpen}
-				autoHideDuration={6000}
-				onClose={handleCloseSnackBar}
-				message={snackBarMessage}
-			/>
-			<Paper
-				elevation={onMobile ? 0 : 3}
+		<AppProvider i18n={translations}>
+			<div
 				style={{
-					padding: onMobile ? 10 : 20,
-					position: 'relative',
-					minHeight: 500,
-					...(onMobile
-						? { height: '100%', width: '100%', overflow: 'scroll' }
-						: { width: 500 }),
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					height: '100%',
+					width: '100%',
+					overflow: 'hidden',
+					position: 'absolute',
 				}}
 			>
-				<div
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+					open={snackBarOpen}
+					autoHideDuration={6000}
+					onClose={handleCloseSnackBar}
+					message={snackBarMessage}
+				/>
+				<Paper
+					elevation={onMobile ? 0 : 3}
 					style={{
-						fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
-						fontSize: 28,
-						fontWeight: 700,
-						textAlign: 'center',
-						marginTop: onMobile ? 10 : 20,
-						marginBottom: onMobile ? 10 : 40,
+						padding: onMobile ? 10 : 20,
+						position: 'relative',
+						minHeight: 500,
+						...(onMobile
+							? { height: '100%', width: '100%', overflow: 'scroll' }
+							: { width: 500 }),
 					}}
 				>
-					Project Name
-				</div>
-				{isLoading ? (
 					<div
 						style={{
-							position: 'fixed',
-							right: 'calc(50vw - 22px)',
-							top: 'calc(50vh - 22px)',
+							fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+							fontSize: 28,
+							fontWeight: 700,
+							textAlign: 'center',
+							marginTop: onMobile ? 10 : 20,
+							marginBottom: onMobile ? 10 : 40,
 						}}
 					>
-						<CircularProgress />
+						Project Name
 					</div>
-				) : isAuthenticated ? (
-					<div
-						style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
-					>
-						Congrats, you're now logged in!
-						<button onClick={() => setIsAuthenticated(false)}>Logout</button>
-					</div>
-				) : (
-					<div>
-						<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
-							Already have an account?
-						</div>
-						<Login authenticate={authenticate} />
+					{isLoading ? (
 						<div
 							style={{
-								...textStyle,
-								margin: '30px auto',
-								textAlign: 'center',
+								position: 'fixed',
+								right: 'calc(50vw - 22px)',
+								top: 'calc(50vh - 22px)',
 							}}
 						>
-							OR
+							<CircularProgress />
 						</div>
-						<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
-							Register as a new user
+					) : isAuthenticated ? (
+						<div
+							style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
+						>
+							Congrats, you're now logged in!
+							<Button onClick={() => setIsAuthenticated(false)}>Logout</Button>
 						</div>
-						<Registration authenticate={authenticate} />
-					</div>
-				)}
-			</Paper>
-		</div>
+					) : (
+						<div>
+							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
+								Already have an account?
+							</div>
+							<Login authenticate={authenticate} />
+							<div
+								style={{
+									...textStyle,
+									margin: '30px auto',
+									textAlign: 'center',
+								}}
+							>
+								OR
+							</div>
+							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
+								Register as a new user
+							</div>
+							<Registration authenticate={authenticate} />
+						</div>
+					)}
+				</Paper>
+			</div>
+		</AppProvider>
 	);
 }
