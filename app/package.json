@@ -24,6 +24,7 @@
 		"@feathersjs/express": "^4.5.18",
 		"@feathersjs/feathers": "^4.5.17",
 		"@feathersjs/rest-client": "^4.5.18",
+		"@feathersjs/socketio-client": "^4.3.7",
 		"@mui/icons-material": "^5.15.12",
 		"@mui/lab": "^5.0.0-alpha.167",
 		"@mui/material": "^5.15.12",
@@ -38,6 +39,7 @@
 		"npm": "^10.5.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"socket.io-client": "^2.3.0",
 		"terser-webpack-plugin": "^5.3.10"
 	},
 	"devDependencies": {
