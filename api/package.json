@@ -15,7 +15,7 @@
     "config": "config/"
   },
   "engines": {
-    "node": ">= 11.0.0",
+    "node": ">= 14.0.0",
     "yarn": ">= 0.18.0"
   },
   "scripts": {
@@ -37,10 +37,10 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "feathers-sequelize": "^6.4.0",
-    "helmet": "^3.23.3",
-    "nodemon": "^1.19.4",
-    "pg": "^7.18.2",
-    "sequelize": "^5.22.5",
+    "helmet": "^7.1.0",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.37.1",
     "serve-favicon": "^2.5.0",
     "winston": "^3.12.0"
   }
