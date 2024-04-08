@@ -10,10 +10,7 @@
     "entity": "user",
     "service": "users",
     "secret": "TMAADbZRN3yGq0g1SeURuiP09cc=",
-    "authStrategies": [
-      "jwt",
-      "local"
-    ],
+    "authStrategies": ["jwt", "local", "mfa"],
     "jwtOptions": {
       "header": {
         "typ": "access"
@@ -24,6 +21,10 @@
       "expiresIn": "1d"
     },
     "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "mfa": {
       "usernameField": "email",
       "passwordField": "password"
     }
