@@ -1174,24 +1174,24 @@
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.3.1.tgz"
   integrity sha512-EsBwpc7hBUJWAsNPBmJy4hxWx12v6bshQsldrVmjxJoc3isbxhOrF2IcCpaXxfvq03NwkI7sbsOLXbYuqF/8Ww==
 
-"@feathersjs/adapter-commons@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/adapter-commons/-/adapter-commons-5.0.23.tgz"
-  integrity sha512-panjuVtG62p23arIwz+7HWpZb1GrbYmXLjnOkO4nuBCLc32dRydDYwLOWzF/v/SVaWPPQm7gW0u6gPrUJnJkMg==
+"@feathersjs/adapter-commons@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/adapter-commons/-/adapter-commons-5.0.24.tgz"
+  integrity sha512-lZsZy1kzYkW0Pq6a4FCgAZ/mdRE9FLUpUxRfczHNahxSuGAplWs2RwfQGMcn3yadE8K4QZfheuwUg894lGA2cQ==
   dependencies:
-    "@feathersjs/commons" "^5.0.23"
-    "@feathersjs/errors" "^5.0.23"
-    "@feathersjs/feathers" "^5.0.23"
+    "@feathersjs/commons" "^5.0.24"
+    "@feathersjs/errors" "^5.0.24"
+    "@feathersjs/feathers" "^5.0.24"
 
 "@feathersjs/authentication-client@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/authentication-client/-/authentication-client-5.0.23.tgz"
-  integrity sha512-bLMmiXdexBJbep+GggUDzTNFL1Ip+zwbibyzkvvn7xEquM5OSs7tInoKUvivgftVabOmmcsNIXm2+YZSbqHN+w==
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/authentication-client/-/authentication-client-5.0.24.tgz"
+  integrity sha512-8VwTfN88xNY7FfayiPNZgV+DqsuXsJg3VvJ7YH0trQLUcvSI7dCOq5dOqAeQFeknzNWuSU6nkhscrVlT47drWw==
   dependencies:
-    "@feathersjs/authentication" "^5.0.23"
-    "@feathersjs/commons" "^5.0.23"
-    "@feathersjs/errors" "^5.0.23"
-    "@feathersjs/feathers" "^5.0.23"
+    "@feathersjs/authentication" "^5.0.24"
+    "@feathersjs/commons" "^5.0.24"
+    "@feathersjs/errors" "^5.0.24"
+    "@feathersjs/feathers" "^5.0.24"
 
 "@feathersjs/authentication-local@^4.5.18":
   version "4.5.18"
@@ -1235,18 +1235,18 @@
     long-timeout "^0.1.1"
     uuid "^8.3.2"
 
-"@feathersjs/authentication@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/authentication/-/authentication-5.0.23.tgz"
-  integrity sha512-bRL5A8Ma6L8EU2XQPwqWDklipI6wSYu2pWoei4M7Hty5i9lXxOWMLSYgRZlI61GieZU9GjlNQTLsxt1UU9nl1Q==
+"@feathersjs/authentication@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/authentication/-/authentication-5.0.24.tgz"
+  integrity sha512-tTEq2vY1Yu5A7iA6XIRBaAOYQ1oZt0Q6tuek5DsliMXv+bP6F3lhdgwBLqWK8qoXhhfX6MPt0qUs7hb5lPHNCg==
   dependencies:
-    "@feathersjs/commons" "^5.0.23"
-    "@feathersjs/errors" "^5.0.23"
-    "@feathersjs/feathers" "^5.0.23"
+    "@feathersjs/commons" "^5.0.24"
+    "@feathersjs/errors" "^5.0.24"
+    "@feathersjs/feathers" "^5.0.24"
     "@feathersjs/hooks" "^0.9.0"
-    "@feathersjs/schema" "^5.0.23"
-    "@feathersjs/transport-commons" "^5.0.23"
-    "@types/jsonwebtoken" "^9.0.5"
+    "@feathersjs/schema" "^5.0.24"
+    "@feathersjs/transport-commons" "^5.0.24"
+    "@types/jsonwebtoken" "^9.0.6"
     jsonwebtoken "^9.0.2"
     lodash "^4.17.21"
     long-timeout "^0.1.1"
@@ -1262,10 +1262,10 @@
   resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-4.5.16.tgz"
   integrity sha512-FXKAcGApcd9w3M42gjLi8+oaPijabS8qbD4ynQK3PM8J7BqpbSdCzURsI7EpReoQxFxdhrR4jix8cQIC/iAeuw==
 
-"@feathersjs/commons@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-5.0.23.tgz"
-  integrity sha512-72cJjo4c3PtOvVvzK5rlqatfdP4VLAeWg+v/f5unYVYtCQPNu1bPigWyY9kopPmWoYwh+JfuccO4OobRTtU+Dw==
+"@feathersjs/commons@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-5.0.24.tgz"
+  integrity sha512-zjm3QRa1B0kZ3W4OTjFa4D73ABJrzUtN0xYPeCI4Fm19pi1/ANQULkqD3+f6Xi74nDr+uj5MadDYcsyGgHEsgA==
 
 "@feathersjs/configuration@^4.5.17":
   version "4.5.17"
@@ -1283,10 +1283,10 @@
   dependencies:
     debug "^4.3.3"
 
-"@feathersjs/errors@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-5.0.23.tgz"
-  integrity sha512-oczkQ8GzzReRRVHC+VGymu439SJY6+uuh/bKJ7gNrEk97ekohW83RJa4h2wSCM+chajUFklY4iInessHTIKOEw==
+"@feathersjs/errors@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-5.0.24.tgz"
+  integrity sha512-7XnTWogwA1da3VT3zjjD+oaMZXtxueadm5gP9e4+aD8dYcW6djPk2KvBL38OWEhXZ/iMgPpA7p0JETcbDYE44w==
 
 "@feathersjs/express@^4.5.18":
   version "4.5.18"
@@ -1311,12 +1311,12 @@
     events "^3.3.0"
     uberproto "^2.0.6"
 
-"@feathersjs/feathers@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/feathers/-/feathers-5.0.23.tgz"
-  integrity sha512-vYOiGQ+NcBFX5ETJGC/en3j1zZ+Y3PLuF2m2hPQEbBKstHB7prbk6bnCYOcLKOnKJbh19FrAVE4WxbSrkFIaVQ==
+"@feathersjs/feathers@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/feathers/-/feathers-5.0.24.tgz"
+  integrity sha512-Vz2/byMxIBVNUUw0nNY+Z0yaWpcZKA1ohSLfvUx3eCgc1ulViS0a2BpadMq3NtgszvcUVP3US4Y+2f6yPe8v6w==
   dependencies:
-    "@feathersjs/commons" "^5.0.23"
+    "@feathersjs/commons" "^5.0.24"
     "@feathersjs/hooks" "^0.9.0"
     events "^3.3.0"
 
@@ -1334,22 +1334,22 @@
     "@feathersjs/errors" "^4.5.17"
     qs "^6.10.2"
 
-"@feathersjs/schema@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/schema/-/schema-5.0.23.tgz"
-  integrity sha512-G6/pt0KlnCiHnEXw6xN0WZXIfL5XCF2iD0sLM5xRlatfUpEmVQ/y+ubeX0ENnIlWqBVSqy/HvNntOCcaOnqkKw==
+"@feathersjs/schema@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/schema/-/schema-5.0.24.tgz"
+  integrity sha512-ZBLXMC9S0xRbZxMupt+e0HDSpR5pnS2qa9lA3Ed56j7aDBK9pmZPExRaDpvwqM4YND6mNXAlHZSnVDJRU7ea1Q==
   dependencies:
-    "@feathersjs/adapter-commons" "^5.0.23"
-    "@feathersjs/commons" "^5.0.23"
-    "@feathersjs/errors" "^5.0.23"
-    "@feathersjs/feathers" "^5.0.23"
+    "@feathersjs/adapter-commons" "^5.0.24"
+    "@feathersjs/commons" "^5.0.24"
+    "@feathersjs/errors" "^5.0.24"
+    "@feathersjs/feathers" "^5.0.24"
     "@feathersjs/hooks" "^0.9.0"
     "@types/json-schema" "^7.0.15"
     ajv "^8.12.0"
     ajv-formats "^2.1.1"
-    json-schema-to-ts "^3.0.0"
+    json-schema-to-ts "^3.0.1"
 
-"@feathersjs/socketio-client@^4.3.7":
+"@feathersjs/socketio-client@^4.5.18":
   version "4.5.18"
   resolved "https://registry.npmjs.org/@feathersjs/socketio-client/-/socketio-client-4.5.18.tgz"
   integrity sha512-ycM2NXX6gEO5VDbT+oRR8HPROA7MgBEO6Y5caEkIqneoPbPUPGeF7HNr6JmObbyC1gjzMPrSQl8Vra3D2Q3G8A==
@@ -1368,14 +1368,14 @@
     lodash "^4.17.21"
     radix-router "^3.0.1"
 
-"@feathersjs/transport-commons@^5.0.23":
-  version "5.0.23"
-  resolved "https://registry.npmjs.org/@feathersjs/transport-commons/-/transport-commons-5.0.23.tgz"
-  integrity sha512-XsuWmrW7d53LAGqExBkKkrtq32HYmuSXXpnrHH8hnfe7wFRELCCiNyBFDDqsOQQjrpjLyGn2BioGv2Xk6sMFlA==
+"@feathersjs/transport-commons@^5.0.24":
+  version "5.0.24"
+  resolved "https://registry.npmjs.org/@feathersjs/transport-commons/-/transport-commons-5.0.24.tgz"
+  integrity sha512-BW+Mk4wqnX1wkYArERGEjBUApV/73gqHOrwr/BG7uthingOY+mdptHiSmvTRNnFUjl80POQV9ihf2Qtlja4u0w==
   dependencies:
-    "@feathersjs/commons" "^5.0.23"
-    "@feathersjs/errors" "^5.0.23"
-    "@feathersjs/feathers" "^5.0.23"
+    "@feathersjs/commons" "^5.0.24"
+    "@feathersjs/errors" "^5.0.24"
+    "@feathersjs/feathers" "^5.0.24"
     encodeurl "^1.0.2"
     lodash "^4.17.21"
 
@@ -1910,7 +1910,7 @@
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.15.tgz"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
-"@types/jsonwebtoken@^9.0.0", "@types/jsonwebtoken@^9.0.5":
+"@types/jsonwebtoken@^9.0.0", "@types/jsonwebtoken@^9.0.6":
   version "9.0.6"
   resolved "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-9.0.6.tgz"
   integrity sha512-/5hndP5dCjloafCXns6SZyESp3Ldq7YjH3zwzwczYnjxIT0Fqzk5ROSYVGfFyczIue7IUEj8hkvLbPoLQ18vQw==
@@ -2766,11 +2766,6 @@ cookie-signature@1.0.7:
   resolved "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.7.tgz"
   integrity sha512-NXdYc3dLr47pBkpUCHtKSwIOQXLVn8dZEuywboCOJY/osA0wFSLlSawr3KN8qXJEyX66FcONTH8EIlVuK0yyFA==
 
-cookie@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npmjs.org/cookie/-/cookie-0.5.0.tgz"
-  integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
-
 cookie@0.6.0:
   version "0.6.0"
   resolved "https://registry.npmjs.org/cookie/-/cookie-0.6.0.tgz"
@@ -3200,16 +3195,16 @@ express-session@^1.17.2:
     uid-safe "~2.1.5"
 
 express@^4.17.2:
-  version "4.18.3"
-  resolved "https://registry.npmjs.org/express/-/express-4.18.3.tgz"
-  integrity sha512-6VyCijWQ+9O7WuVMTRBTl+cjNNIzD5cY5mQ1WM8r/LEkI2u8EYpOotESNwzNlyCn3g+dmjKYI6BmNneSr/FSRw==
+  version "4.19.0"
+  resolved "https://registry.npmjs.org/express/-/express-4.19.0.tgz"
+  integrity sha512-/ERliX0l7UuHEgAy7HU2FRsiz3ScIKNl/iwnoYzHTJC0Sqj3ctWDD3MQ9CbUEfjshvxXImWaeukD0Xo7a2lWLA==
   dependencies:
     accepts "~1.3.8"
     array-flatten "1.1.1"
     body-parser "1.20.2"
     content-disposition "0.5.4"
     content-type "~1.0.4"
-    cookie "0.5.0"
+    cookie "0.6.0"
     cookie-signature "1.0.6"
     debug "2.6.9"
     depd "2.0.0"
@@ -3855,13 +3850,12 @@ json-parse-even-better-errors@^3.0.0, json-parse-even-better-errors@^3.0.1:
   resolved "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-3.0.1.tgz"
   integrity sha512-aatBvbL26wVUCLmbWdCpeu9iF5wOyWpagiKkInA+kfws3sWdBrTnsvN2CKcyCYyUrc7rebNBlK6+kteg7ksecg==
 
-json-schema-to-ts@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/json-schema-to-ts/-/json-schema-to-ts-3.0.0.tgz"
-  integrity sha512-2adDesYifYEXYxNySx3gG0RR69rDWIjqAFzK/JPXdOvjHLZ/UP6d2rkpy6a+AxyhtRp2SvFPZ4+EW36jBinUbA==
+json-schema-to-ts@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/json-schema-to-ts/-/json-schema-to-ts-3.0.1.tgz"
+  integrity sha512-ANphQxnKbzLWPeYDmdoci8C9g9ttpfMx8etTlJJ8UCEmNXH9jxGkn3AAbMe+lR4N5OG/01nYxPrDyugLdsRt+A==
   dependencies:
     "@babel/runtime" "^7.18.3"
-    "@types/json-schema" "^7.0.9"
     ts-algebra "^1.2.2"
 
 json-schema-traverse@^0.4.1:
@@ -5650,7 +5644,7 @@ type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript@^5.4.2, typescript@>=5.3:
+typescript@^5.4.2, typescript@>=5.4:
   version "5.4.2"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.4.2.tgz"
   integrity sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==
