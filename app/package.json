@@ -24,7 +24,7 @@
 		"@feathersjs/express": "^4.5.18",
 		"@feathersjs/feathers": "^4.5.17",
 		"@feathersjs/rest-client": "^4.5.18",
-		"@feathersjs/socketio-client": "^4.3.7",
+		"@feathersjs/socketio-client": "^4.5.18",
 		"@mui/icons-material": "^5.15.12",
 		"@mui/lab": "^5.0.0-alpha.167",
 		"@mui/material": "^5.15.12",

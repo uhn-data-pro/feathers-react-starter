@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import { Button, TextField } from '@shopify/polaris';
 
 export interface LoginProps {
+	loginUser: { email: string; password: string };
+	updateLoginUser: (field, value) => void;
 	authenticate: (options: any) => Promise<void>;
 }
 
-export default function Login({ authenticate }: LoginProps) {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+export default function Login({
+	loginUser,
+	updateLoginUser,
+	authenticate,
+}: LoginProps) {
+	const { email, password } = loginUser;
 
 	return (
 		<div style={{ padding: '0 20px' }}>
@@ -16,7 +21,7 @@ export default function Login({ authenticate }: LoginProps) {
 				autoComplete='true'
 				id='email-local'
 				label='Email'
-				onChange={(value) => setEmail(value)}
+				onChange={(value) => updateLoginUser('email', value)}
 				type='email'
 				value={email}
 			/>
@@ -24,7 +29,7 @@ export default function Login({ authenticate }: LoginProps) {
 				autoComplete='true'
 				id='password-local'
 				label='Password'
-				onChange={(value) => setPassword(value)}
+				onChange={(value) => updateLoginUser('password', value)}
 				type='password'
 				value={password}
 			/>
@@ -33,7 +38,7 @@ export default function Login({ authenticate }: LoginProps) {
 					variant='primary'
 					fullWidth
 					size='large'
-					onClick={() => authenticate({ email, password })}
+					onClick={() => authenticate({ strategy: 'mfa', email, password })}
 				>
 					Login
 				</Button>

@@ -7,36 +7,39 @@ import Snackbar from '@mui/material/Snackbar';
 import app from '../feathers-client';
 
 export interface RegistrationProps {
+	registerUser: {
+		email: string;
+		password: string;
+		passwordConfirmation: string;
+	};
+	updateRegisterUser: (field: string, value: string) => void;
 	authenticate: (options: any) => Promise<void>;
 }
-export default function Registration({ authenticate }: RegistrationProps) {
-	const [newUser, setnewUser] = useState({
-		email: '',
-		password: '',
-		passwordConfirmation: '',
-	});
+export default function Registration({
+	registerUser,
+	updateRegisterUser,
+	authenticate,
+}: RegistrationProps) {
+	const { email, password, passwordConfirmation } = registerUser;
 	const [error, setError] = useState('');
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
 	const [snackBarMessage, setSnackBarMessage] = useState('');
 
 	const handleCloseSnackBar = () => setSnackBarOpen(false);
 
-	const handleRegistrationChange = (field: string, value: string) =>
-		setnewUser({ ...newUser, [field]: value });
-
 	const handleRegisterUser = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		const { email, password } = newUser;
 
-		if (password !== newUser.passwordConfirmation) {
+		if (password !== passwordConfirmation) {
 			return setError('Please make sure your passwords match');
 		}
 
-		app
+		return app
 			.service('users')
 			.create({ email, password })
 			.then(() => authenticate({ strategy: 'local', email, password }))
-			.catch(() => {
+			.catch((err) => {
+				console.error(err);
 				setSnackBarOpen(true);
 				setSnackBarMessage('Sorry, this email has already been used');
 			});
@@ -58,12 +61,10 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				id='email'
 				label='Email'
 				margin='normal'
-				onChange={(event) =>
-					handleRegistrationChange('email', event.target.value)
-				}
+				onChange={(event) => updateRegisterUser('email', event.target.value)}
 				type='email'
 				variant='outlined'
-				value={newUser.email}
+				value={email}
 			/>
 			<TextField
 				fullWidth
@@ -71,12 +72,10 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				id='password'
 				label='Password'
 				margin='normal'
-				onChange={(event) =>
-					handleRegistrationChange('password', event.target.value)
-				}
+				onChange={(event) => updateRegisterUser('password', event.target.value)}
 				type='password'
 				variant='outlined'
-				value={newUser.password}
+				value={password}
 			/>
 			<TextField
 				error={!!error}
@@ -87,11 +86,11 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				label='Confirm Password'
 				margin='normal'
 				onChange={(event) =>
-					handleRegistrationChange('passwordConfirmation', event.target.value)
+					updateRegisterUser('passwordConfirmation', event.target.value)
 				}
 				type='password'
 				variant='outlined'
-				value={newUser.passwordConfirmation}
+				value={passwordConfirmation}
 			/>
 			<div style={{ textAlign: 'center', marginBottom: 20, marginTop: 16 }}>
 				<Button

@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import app from './feathers-client';
 import Login from './components/login';
 import Registration from './components/registration';
+import EnableTwoFa from './components/enableTwoFa';
+import OtpInput from './components/otpInput';
 
 import { isMobile } from './utils';
 import '@shopify/polaris/build/esm/styles.css';
@@ -19,17 +21,38 @@ export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
 	const [snackBarMessage, setSnackBarMessage] = useState('');
+	const [registerUser, setRegisterUser] = useState({
+		email: '',
+		password: '',
+		passwordConfirmation: '',
+	});
+	const [loginUser, setLoginUser] = useState({ email: '', password: '' });
+	const [openEnable, setOpenEnable] = useState(false);
+	const [openOtp, setOpenOtp] = useState(false);
 
 	const authenticate = (options: any) => {
 		return app
-			.authenticate({ strategy: 'local', ...options })
-			.then(() => setIsAuthenticated(true))
-			.catch(() => {
-				setIsAuthenticated(false);
-				setSnackBarOpen(true);
-				setSnackBarMessage(
-					'Login failed, please check your email and/or password'
-				);
+			.authenticate({ ...options })
+			.then((res) => {
+				// prompt if 2FA hasn't been enabled yet
+				if (!res.user.twoFa) setOpenEnable(true);
+				setIsAuthenticated(true);
+			})
+			.catch((err) => {
+				// if mfa authentication strategy, prompt for code
+				if (err.message === 'Prompt for OTP') {
+					setOpenOtp(true);
+				} else if (err.message === 'Incorrect OTP') {
+					setSnackBarOpen(true);
+					setSnackBarMessage('Incorrect code, please try again.');
+				} else {
+					console.error(err);
+					setIsAuthenticated(false);
+					setSnackBarOpen(true);
+					setSnackBarMessage(
+						'Login failed, please check your email and/or password'
+					);
+				}
 			});
 	};
 
@@ -109,17 +132,56 @@ export default function App() {
 						</div>
 					) : isAuthenticated ? (
 						<div
-							style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
+							style={{
+								...textStyle,
+								margin: '60px auto',
+								display: 'flex',
+								flexDirection: 'column',
+								textAlign: 'center',
+								gap: 20,
+							}}
 						>
-							Congrats, you're now logged in!
-							<Button onClick={() => setIsAuthenticated(false)}>Logout</Button>
+							<EnableTwoFa
+								open={openEnable}
+								setOpen={setOpenEnable}
+								email={registerUser.email || loginUser.email}
+							/>
+							<div>Congrats, you're now logged in!</div>
+							<Button
+								variant='contained'
+								onClick={() => {
+									setIsAuthenticated(false);
+									setOpenOtp(false);
+									setRegisterUser({
+										email: '',
+										password: '',
+										passwordConfirmation: '',
+									});
+									setLoginUser({ email: '', password: '' });
+									localStorage.removeItem('feathers-jwt');
+								}}
+							>
+								Logout
+							</Button>
 						</div>
 					) : (
 						<div>
 							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
 								Already have an account?
 							</div>
-							<Login authenticate={authenticate} />
+							<Login
+								loginUser={loginUser}
+								updateLoginUser={(field, value) =>
+									setLoginUser({ ...loginUser, [field]: value })
+								}
+								authenticate={authenticate}
+							/>
+							<OtpInput
+								open={openOtp}
+								setOpen={setOpenOtp}
+								authenticate={authenticate}
+								user={loginUser}
+							/>
 							<div
 								style={{
 									...textStyle,
@@ -132,7 +194,13 @@ export default function App() {
 							<div style={{ ...textStyle, fontSize: 16, padding: '0 20px' }}>
 								Register as a new user
 							</div>
-							<Registration authenticate={authenticate} />
+							<Registration
+								registerUser={registerUser}
+								updateRegisterUser={(field, value) =>
+									setRegisterUser({ ...registerUser, [field]: value })
+								}
+								authenticate={authenticate}
+							/>
 						</div>
 					)}
 				</Paper>
