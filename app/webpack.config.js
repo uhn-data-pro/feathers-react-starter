@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const envalid = require('envalid');
 const { makeValidator } = envalid;
 const TerserPlugin = require('terser-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const nonEmptyString = makeValidator((input) => {
 	if (typeof input === 'string' && input !== '') {
@@ -148,6 +149,7 @@ module.exports = function (opts) {
 		target: IS_BROWSER ? 'web' : 'node',
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js', '.jsx'],
+      plugins: [new TsconfigPathsPlugin({})],
 			alias: {
 				FRS: path.resolve(__dirname, './src'),
 				react: path.resolve(__dirname, './node_modules', 'react'),

@@ -10,7 +10,9 @@
   "bugs": {},
   "scripts": {
     "db:reset": "docker-compose -f docker-compose.yml run --rm api node scripts db/reset",
-    "psql": "docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name"
+    "psql": "docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name",
+    "pluck:app": "docker cp feathers-react-starter_app_1:/home/node/package.json app && docker cp feathers-react-starter_app_1:/home/node/yarn.lock app",
+    "pluck:api": "docker cp feathers-react-starter_api_1:/home/node/package.json api && docker cp feathers-react-starter_api_1:/home/node/yarn.lock api"
   },
   "dependencies": {
     "node-base64-image": "^1.0.7",
