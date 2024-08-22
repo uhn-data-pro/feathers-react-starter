@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from "react-router-dom"
 
 import { ThemeProvider, Theme, createTheme, StyledEngineProvider } from '@mui/material/styles'
 import App from 'STARTER/App';
@@ -15,6 +16,9 @@ const SW_UPDATE_PERIOD = process.env.NODE_ENV === "production" ? 1000 * 60 * 5 :
 
 const theme : (() => Theme) = () => createTheme({ 
 	//put things like standard colours, font family, MUI overrides here
+	typography: {
+    fontFamily: ['Roboto', 'sans-serif'].join(',')
+  },
 })
 
 let newWorker : ServiceWorker
@@ -94,7 +98,9 @@ root.render(
   <AuthContext>
     <StyledEngineProvider injectFirst>
       <ThemeProviderWrapper theme={theme}>
-        <App />
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
       </ThemeProviderWrapper>
     </StyledEngineProvider>
   </AuthContext>

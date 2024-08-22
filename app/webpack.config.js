@@ -5,6 +5,8 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const envalid = require('envalid');
 const { makeValidator } = envalid;
 const TerserPlugin = require('terser-webpack-plugin');
@@ -76,7 +78,23 @@ module.exports = function (opts) {
 				favicon: './src/assets/favicon.ico',
 				filename: '_index.html',
 				template: './src/assets/template.html',
-			})
+			}),
+      new WorkboxPlugin.GenerateSW({
+        // these options encourage the ServiceWorkers to get in there fast
+        // and not allow any straggling "old" SWs to hang around
+        clientsClaim: true,
+        skipWaiting: true,
+        runtimeCaching: [{
+          urlPattern: /[\s\S]*/,
+          handler: 'NetworkFirst'
+        }]
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          //{ from: './src/assets/Favicon.png'},
+          { from: './src/assets/manifest.json'}
+        ]
+      })
 		);
 	}
 
@@ -132,7 +150,7 @@ module.exports = function (opts) {
 		entry: IS_BROWSER ? './src/client.tsx' : './src/server.ts',
 		devtool: env.isProduction
 			? 'cheap-module-source-map'
-			: 'cheap-module-eval-source-map',
+			: 'eval-cheap-module-source-map',
 		output: {
 			path: IS_BROWSER ? env.STATIC_ROOT : path.resolve(__dirname, 'bin'),
 			publicPath: PUBLIC_PATH,
@@ -149,11 +167,11 @@ module.exports = function (opts) {
 		target: IS_BROWSER ? 'web' : 'node',
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js', '.jsx'],
-      plugins: [new TsconfigPathsPlugin({})],
-			alias: {
-				FRS: path.resolve(__dirname, './src'),
+      plugins: [new TsconfigPathsPlugin({/* options: see below */})],
+			/*alias: {
+				IMIN: path.resolve(__dirname, './src'),
 				react: path.resolve(__dirname, './node_modules', 'react'),
-			},
+			},*/
 			modules: [path.resolve(__dirname, 'src'), 'node_modules'],
 		},
 		module: {

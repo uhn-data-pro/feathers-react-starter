@@ -1,0 +1,17 @@
+{
+    "icons": [
+      {
+        "src": "/favicon.ico",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "name": "Feathers-React-Starter",
+    "short_name": "Feathers-React-Starter",
+    "orientation": "portrait",
+    "display": "standalone",
+    "start_url": "/login",
+    "background_color": "#FFFFFF",
+    "theme_color": "#012D4C"
+  }

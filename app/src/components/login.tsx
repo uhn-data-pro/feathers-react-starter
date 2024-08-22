@@ -33,7 +33,7 @@ export default function Login({ authenticate }: LoginProps) {
 					variant='primary'
 					fullWidth
 					size='large'
-					onClick={() => authenticate({ email, password })}
+					onClick={() => authenticate({ strategy: 'local', email, password })}
 				>
 					Login
 				</Button>
