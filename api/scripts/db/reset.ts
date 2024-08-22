@@ -1,6 +1,6 @@
-'use strict'
+import { Application } from '../../src/declarations'
 
-module.exports = function (app) {
+export default function (app: Application) {
   const db = app.get('sequelizeClient')
 
   console.log('Resetting all models...')
@@ -14,5 +14,5 @@ module.exports = function (app) {
 
   return db.sync({ force: true })
     .then(() => console.log('Successfully forcefully synced database'))
-    .catch(err => console.error(err))
+    .catch((err: any) => console.error(err))
 }

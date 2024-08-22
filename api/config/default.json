@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 8000,
-  "public": "../public/",
+  "public": "/home/node/public/",
   "paginate": {
     "default": 10,
     "max": 50
@@ -36,5 +36,8 @@
   },
   "static": {
     "uploadRoot": "/home/node/uploads"
+  },
+  "audit": {
+    "dirname": "AUDIT_LOGS_DIR"
   }
 }

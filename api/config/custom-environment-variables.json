@@ -1,0 +1,11 @@
+{
+  "postgres": {
+    "database": "POSTGRES_DB",
+    "username": "POSTGRES_USER",
+    "password": "POSTGRES_PASSWORD",
+    "host": "POSTGRES_HOST"
+  },
+  "audit": {
+    "dirname": "AUDIT_LOGS_DIR"
+  }
+}

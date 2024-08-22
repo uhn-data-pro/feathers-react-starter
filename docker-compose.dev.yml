@@ -1,0 +1,94 @@
+version: '2.1'
+
+services:
+  app:
+    container_name: app
+    build: ./app
+    volumes:
+      - ./app/.babelrc:/home/node/.babelrc
+      - ./app/src:/home/node/src
+      - ./app/start.js:/home/node/start.js
+      - ./app/webpack.config.js:/home/node/webpack.config.js
+      - ./app/static:/home/node/dist
+    environment:
+      - LOG_FORMAT=dev
+      - NODE_ENV
+      - SPA_BASE_URL=http://localhost:$APP_PORT
+      - API_BASE_URL=http://localhost:$API_PORT
+      - INTERNAL_API_BASE_URL=http://api:8000
+    ports:
+      - "$APP_PORT:8000"
+    entrypoint: node start.js
+    networks:
+      - dev
+
+  api:
+    container_name: api
+    build: ./api
+    volumes:
+      - ./api/config:/home/node/config
+      - ./api/src:/home/node/src
+      - ./api/scripts:/home/node/scripts
+      - ./api/static/uploads:/home/node/uploads
+      - filebeat-logs:/home/node/uploads/filebeat_logs
+    environment:
+      - API_BASE_URL=http://localhost:$API_PORT
+      - APP_BASE_URL=http://localhost:$APP_PORT
+      - DEBUG=feathers-react-starter:*
+      - LOG_FORMAT=dev
+      - POSTGRES_DB=project-name
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=project-name
+      - ENVIRONMENT=development
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-false}
+      - AUDIT_LOGS_DIR=/home/node/log
+      - GIT_TAG_NUMBER
+    env_file:
+      - ./api/secrets/POSTGRES_PASSWORD
+    ports:
+      - "$API_PORT:8000"
+      - "9230:9229"
+    command: yarn run dev
+    networks:
+      - dev
+    depends_on:
+      postgres:
+        condition: service_started
+
+  filebeat:
+    container_name: filebeat
+    build: ./filebeat
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./filebeat/filebeat.dev.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat/logs:/usr/share/filebeat/dockerlogs
+      - filebeat-logs:/usr/share/filebeat/logs
+
+  postgres:
+    container_name: postgres
+    image: postgres:9.6
+    environment:
+      - POSTGRES_DB=project-name
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=project-name
+    env_file:
+      - ./api/secrets/POSTGRES_PASSWORD
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - dev
+    ports:
+      - 5433:5432
+
+volumes:
+  filebeat-logs: {}
+  postgres-data: {}
+
+networks:
+  dev:
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
+    ipam:
+      config:
+        - subnet: 10.102.0.0/24

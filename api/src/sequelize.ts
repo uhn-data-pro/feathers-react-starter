@@ -1,24 +1,30 @@
-const Sequelize = require('sequelize')
+import { Sequelize } from 'sequelize'
+import { Application } from './declarations'
 
-module.exports = function (app) {
+export default function(app: Application) {
   const { database, username, password, host } = app.get('postgres')
+
   const sequelize = new Sequelize(database, username, password, {
     host,
     dialect: 'postgres',
     logging: false,
     define: {
-      freezeTableName: true
+      freezeTableName: true,
+      timestamps: true,
+      underscored: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
     }
   })
   const oldSetup = app.setup
 
   app.set('sequelizeClient', sequelize)
 
-  app.setup = function (...args) {
-    const result = oldSetup.apply(this, args)
+  app.setup = function(server?: any): Promise<Application> {
+    const result = oldSetup.apply(this, server)
 
     // Set up data relationships
-    const models = sequelize.models
+    const models = <any> sequelize.models
     Object.keys(models).forEach(name => {
       if ('associate' in models[name]) {
         models[name].associate(models)
