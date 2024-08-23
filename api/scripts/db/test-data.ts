@@ -12,7 +12,7 @@ const users: Partial<User>[] = [
 ]
 
 export default function(app: Application) {
-  const db = app.getnom ('sequelizeClient')
+  const db = app.get ('sequelizeClient')
   const models = db.models
 
   const modelCreate = (model: any, data: any, options: any) => {
