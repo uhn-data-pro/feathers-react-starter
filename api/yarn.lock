@@ -3,9 +3,9 @@
 
 
 "@babel/runtime@^7.18.3":
-  version "7.25.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.25.0.tgz#3af9a91c1b739c569d5d80cc917280919c544ecb"
-  integrity sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==
+  version "7.25.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.25.4.tgz#6ef37d678428306e7d75f054d5b1bdb8cf8aa8ee"
+  integrity sha512-DSgLeL/FNcpXuzav5wfYvHCGvynXkJbn3Zvc3823AEe9nPwW9IK4UoCSS5yGymmQzN0pCPvivtgS6/8U2kkm1w==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -71,7 +71,7 @@
     "@feathersjs/errors" "^5.0.29"
     "@feathersjs/feathers" "^5.0.29"
 
-"@feathersjs/authentication-local@^5.0.27":
+"@feathersjs/authentication-local@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-local/-/authentication-local-5.0.29.tgz#137c69eea990d65e7eb5c9d204391b3c9da8caa0"
   integrity sha512-Xkv1oCxn4eZGFWM61Wgo0ghabJIHg0xhkr5zy3glTDZFzqmS8xsoRyQufBnzEd8zMQlw09AK/YbFRNWUc8lNIQ==
@@ -83,7 +83,7 @@
     bcryptjs "^2.4.3"
     lodash "^4.17.21"
 
-"@feathersjs/authentication-oauth@^5.0.27":
+"@feathersjs/authentication-oauth@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-oauth/-/authentication-oauth-5.0.29.tgz#243f74bd76bb07461c0571e78876ad04446bba2e"
   integrity sha512-bcC8wjs5Sk0UD17jSjycH7++qAJy2ZgcdMcprXcUoO7NWP5cucgIYBWLUoOefxp/kmukwDFz71LpV94T92ZAOA==
@@ -100,7 +100,7 @@
     koa-session "^6.4.0"
     qs "^6.12.3"
 
-"@feathersjs/authentication@^5.0.27", "@feathersjs/authentication@^5.0.29":
+"@feathersjs/authentication@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication/-/authentication-5.0.29.tgz#e7952d78645e29383fa121a381ed3002acb2000a"
   integrity sha512-kYC1x1etmZ9Q9EZXd6bbMlk1myaHS5TsW3kOty0m6amG9BDcFdEyh9ij/JgVuL0EJ+7KOHweOypdJ3bIpiinqQ==
@@ -122,7 +122,7 @@
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-5.0.29.tgz#8dea7428c4281d7ba72953a6bc53c73770690da8"
   integrity sha512-Gr2c0XxBTQ/+SoH8bAxJO1rUzBrFExQmK7Wdasp9g/xwS0InCNLPHhrrNc2KwTVSx8kbsN+GZRBkzytmxgWM0w==
 
-"@feathersjs/configuration@^5.0.27":
+"@feathersjs/configuration@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/configuration/-/configuration-5.0.29.tgz#aaeba50a04e9577317abf3546d61118bb768d00e"
   integrity sha512-b/ql5NVrBe+dISIrhg9JWtR5QrDwsh623X2py9gRy4++HMffKqrhFxxHj0N6xCNhV5MhQU+sXaHJZp0wwmrEoQ==
@@ -133,12 +133,12 @@
     "@types/config" "^3.3.4"
     config "^3.3.12"
 
-"@feathersjs/errors@^5.0.11", "@feathersjs/errors@^5.0.27", "@feathersjs/errors@^5.0.29":
+"@feathersjs/errors@^5.0.11", "@feathersjs/errors@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-5.0.29.tgz#04536135e8f3f7beaf5e0e356c176ac939f3fae1"
   integrity sha512-SLpvC36V84XKxucAtDC70GXkqmsvTE5SO4uSZXuTpK68VqeefbmSY+KSid2DY9dM0upZN7orwVBB5YciUMCIIg==
 
-"@feathersjs/express@^5.0.27", "@feathersjs/express@^5.0.29":
+"@feathersjs/express@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/express/-/express-5.0.29.tgz#13b1315a2d51a770c6498ab0ca74f58576cf1cfd"
   integrity sha512-PvbzAuolHZEL2VBQRyuMVhsa9LVM7HuN6nXyGFv7IqSr7t61i3v5BuWbn4SQ6EO88NVHDnb7DZT7ojDVhU6YFw==
@@ -156,7 +156,7 @@
     cors "^2.8.5"
     express "^4.19.2"
 
-"@feathersjs/feathers@^5.0.27", "@feathersjs/feathers@^5.0.29":
+"@feathersjs/feathers@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-5.0.29.tgz#fed5ad47b431990f29e5ed9ca420f1325d55419c"
   integrity sha512-ERY0W0FfZUysIksdwbBhXZot1F1EuLtlhJA27o9VN9EWIh6IHlT30McyqQqdqTiqVhsOS+KJPLTeGPH60REg+Q==
@@ -206,7 +206,7 @@
     ajv-formats "^3.0.1"
     json-schema-to-ts "^3.1.0"
 
-"@feathersjs/socketio@^5.0.27":
+"@feathersjs/socketio@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/socketio/-/socketio-5.0.29.tgz#c719fe0a14da8ebed467422739d62f578420f631"
   integrity sha512-xtHtWAoEgOEgTYmiEKyqEC10DLbZ51U3mMluQPknsGgH1W2+GgI7WwCAVyM3ZPcVFlUwmVa62/GsIznOs33Hjg==
@@ -547,9 +547,9 @@
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
 "@types/node@*", "@types/node@>=10.0.0":
-  version "22.4.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.4.2.tgz#55fefb1c3dba2ecd7eb76738c6b80da75760523f"
-  integrity sha512-nAvM3Ey230/XzxtyDcJ+VjvlzpzoHwLsF7JaDRfoI0ytO0mVheerNmM45CtA0yOILXwXXxOrcUWH3wltX+7PSw==
+  version "22.5.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.5.0.tgz#10f01fe9465166b4cab72e75f60d8b99d019f958"
+  integrity sha512-DkFrJOe+rfdHTqqMg0bSNlGlQ85hSoh2TPzZyhHsXnMtligRWpxUySiyw8FY14ITt24HVCiQPWxS3KO/QlGmWg==
   dependencies:
     undici-types "~6.19.2"
 
@@ -2010,9 +2010,9 @@ is-class-hotfix@~0.0.6:
   integrity sha512-0n+pzCC6ICtVr/WXnN2f03TK/3BfXY7me4cjCAqT8TYXEl0+JBRoqBo94JJHXcyDSLUeWbNX8Fvy5g5RJdAstQ==
 
 is-core-module@^2.13.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.15.0.tgz#71c72ec5442ace7e76b306e9d48db361f22699ea"
-  integrity sha512-Dd+Lb2/zvk9SKy1TGCt1wFJFo/MWBPMX5x7KcvLajWTGuomczdQX61PvY5yK6SVACwpoexWo81IfFyoKY2QnTA==
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.15.1.tgz#a7363a25bee942fefab0de13bf6aa372c82dcc37"
+  integrity sha512-z0vtXSwucUJtANQWldhbtbt7BnL0vxiFjIdDLAatwhDYty2bad6s+rijD6Ri4YuYJubLzIJLUidCh09e1djEVQ==
   dependencies:
     hasown "^2.0.2"
 

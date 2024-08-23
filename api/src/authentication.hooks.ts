@@ -7,7 +7,8 @@ import { HookContext, HookOptions } from './declarations'
 import { User } from './models/users.model'
 
 const userFieldsToReturn = [
-  'username', // may need to be updated to 'email'
+  'id',
+  'email', // may need to be updated to 'username'
 ]
 
 const limitUserFieldsReturned = () => (context: HookContext) => {

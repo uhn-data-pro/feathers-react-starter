@@ -10,22 +10,21 @@ import fs from 'fs'
 import maxBy from 'lodash/maxBy'
 import moment from 'moment'
 
+import { Application } from './declarations'
 import { feathers } from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
 import { NextFunction, Request, Response } from 'express'
 import express, { errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
-import socketio from '@feathersjs/socketio'
+//import socketio from '@feathersjs/socketio'
 
-import { Application } from './declarations'
-import middleware from './middleware'
+//import middleware from './middleware'
 import services from './services'
 import appHooks from './app.hooks'
-import channels from './channels'
+//import channels from './channels'
 
 import authentication from './authentication'
 
 import sequelize from './sequelize'
-
 
 const { printf } = winston.format
 
@@ -120,18 +119,18 @@ app.use('/', serveStatic(app.get('public')))
 
 // Set up Plugins and providers
 app.configure(rest())
-app.configure(socketio())
+//app.configure(socketio())
 
 app.configure(sequelize)
 
 // Configure other middleware (see `middleware/index.ts`)
-app.configure(middleware)
+//app.configure(middleware)
 app.configure(authentication)
 
 // Set up our services (see `services/index.ts`)
 app.configure(services)
 // Set up event channels (see channels.js)
-app.configure(channels)
+//app.configure(channels)
 
 // Configure a middleware for 404s and the error handler
 app.use(notFound())

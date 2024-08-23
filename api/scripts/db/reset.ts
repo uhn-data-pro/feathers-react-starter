@@ -5,7 +5,7 @@ export default function (app: Application) {
 
   console.log('Resetting all models...')
 
-  const models = db.models
+  const models = <any> db.models
   Object.keys(models).forEach(name => {
     if ('associate' in models[name]) {
       models[name].associate(models)

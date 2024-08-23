@@ -1,5 +1,6 @@
 import * as feathersAuthentication from '@feathersjs/authentication'
 import * as local from '@feathersjs/authentication-local'
+import { disallow, iff, isProvider } from 'feathers-hooks-common'
 import get from 'lodash/get'
 
 import { HookContext, HookOptions } from '../../declarations'
@@ -29,8 +30,12 @@ const hooks: HookOptions<Users> = {
 
   before: {
     all: [],
-    find: [],
-    get: [],
+    find: [
+      disallow('external')
+    ],
+    get: [
+      iff(isProvider('external'), restrictToUser())
+    ],
     create: [
       hashPassword('password')
     ],
@@ -40,7 +45,9 @@ const hooks: HookOptions<Users> = {
     patch: [
       hashPassword('password')
     ],
-    remove: []
+    remove: [
+      disallow('external')
+    ]
   },
 
   after: {
