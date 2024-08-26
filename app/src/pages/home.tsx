@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
+import { useNavigate } from 'react-router-dom'
+
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
@@ -21,6 +23,7 @@ export default function Home() {
   const { authenticate, isLoginLoading, isAuthed, logout } = useContext(AuthContext) as AuthContextType
 
 	const handleCloseSnackBar = () => setSnackBarOpen(false);
+  let navigate = useNavigate()
 
 	const onMobile = isMobile();
 
@@ -29,6 +32,11 @@ export default function Home() {
 		fontSize: 22,
 		fontWeight: 100,
 	};
+
+  const handleLogin = (options) => {
+    return authenticate(options)
+    .then(() => navigate('/dashboard'))
+  }
 
 	return (
 			<div
@@ -82,19 +90,12 @@ export default function Home() {
 						>
 							<CircularProgress />
 						</div>
-					) : isAuthed ? (
-						<div
-							style={{ ...textStyle, margin: '60px auto', textAlign: 'center' }}
-						>
-							Congrats, you're now logged in!
-							<Button onClick={logout}>Logout</Button>
-						</div>
 					) : (
 						<div>
 							<Typography style={{ fontSize: 16, padding: '0 20px' }}>
                 <FormattedMessage id='login.alreadyHaveAccount' defaultMessage='Already have an account?'/>
 							</Typography>
-							<Login authenticate={authenticate} />
+							<Login authenticate={handleLogin} />
 							<Typography
 								style={{
 									margin: '30px auto',

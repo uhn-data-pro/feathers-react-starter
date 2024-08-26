@@ -19,6 +19,12 @@ translation:
         emailUsed: 'Sorry, this email has already been used'
       }
     },
+    dashboard: {
+      loggedIn: "Congrats, you're now logged in!"
+    },
+    actions: {
+      logout: "Logout"
+    }
   }
 }
   
