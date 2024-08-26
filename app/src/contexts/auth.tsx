@@ -2,12 +2,6 @@ import React, { createContext, useEffect, useState } from 'react'
 
 import app from 'STARTER/feathers-client'
 
-export const AuthContext = createContext({})
-
-export type user = { id: string, email: string, role: string }
-
-export type authData = { strategy: string, email: string, password: string }
-
 export type AuthContextType = {
   isAuthed: boolean,
   isAuthLoading: boolean,
@@ -17,7 +11,14 @@ export type AuthContextType = {
   logout: () => void
 }
 
-export default ({ children }) => {
+export const AuthContext = createContext<AuthContextType>(null)
+AuthContext.displayName = 'AuthContext' // Show context name in React Dev Tools
+
+export type user = { id: string, email: string, role: string }
+
+export type authData = { strategy: string, email: string, password: string }
+
+const AuthProvider = ({ children }) => {
 
   const [isAuthed, _setIsAuthed] = useState(false)
   const [isAuthLoading, setIsAuthLoading] = useState(true)
@@ -98,3 +99,5 @@ export default ({ children }) => {
     </AuthContext.Provider>
   )
 } 
+
+export default AuthProvider
