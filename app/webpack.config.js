@@ -167,11 +167,7 @@ module.exports = function (opts) {
 		target: IS_BROWSER ? 'web' : 'node',
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js', '.jsx'],
-      plugins: [new TsconfigPathsPlugin({/* options: see below */})],
-			/*alias: {
-				IMIN: path.resolve(__dirname, './src'),
-				react: path.resolve(__dirname, './node_modules', 'react'),
-			},*/
+      plugins: [new TsconfigPathsPlugin({})],
 			modules: [path.resolve(__dirname, 'src'), 'node_modules'],
 		},
 		module: {
