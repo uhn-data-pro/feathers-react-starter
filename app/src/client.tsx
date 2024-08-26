@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 
 import { ThemeProvider, Theme, createTheme, StyledEngineProvider } from '@mui/material/styles'
 import App from 'STARTER/App';
+import './i18n'
 
 
 import { SPA_BASE_URL } from './constants/'

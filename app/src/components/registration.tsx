@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Snackbar from '@mui/material/Snackbar'
 
-import app from '../feathers-client';
+import FormattedMessage from 'STARTER/components/formattedMessage'
+import { translateString } from 'STARTER/utils'
+
+import app from '../feathers-client'
 
 export interface RegistrationProps {
 	authenticate: (options: any) => Promise<void>;
@@ -19,17 +22,20 @@ export default function Registration({ authenticate }: RegistrationProps) {
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
 	const [snackBarMessage, setSnackBarMessage] = useState('');
 
+  const passwordMatchErrorString = translateString('register.errors.passwordsMatch', 'Please make sure your passwords match')
+  const registrationErrorString = translateString('register.errors.emailUsed', 'Sorry, this email has already been used')
+
 	const handleCloseSnackBar = () => setSnackBarOpen(false);
 
 	const handleRegistrationChange = (field: string, value: string) =>
 		setnewUser({ ...newUser, [field]: value });
 
 	const handleRegisterUser = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
-		const { email, password } = newUser;
+		event.preventDefault()
+		const { email, password } = newUser
 
 		if (password !== newUser.passwordConfirmation) {
-			return setError('Please make sure your passwords match');
+			return setError(passwordMatchErrorString);
 		}
 
 		app
@@ -38,7 +44,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 			.then(() => authenticate({ strategy: 'local', email, password }))
 			.catch(() => {
 				setSnackBarOpen(true);
-				setSnackBarMessage('Sorry, this email has already been used');
+				setSnackBarMessage(registrationErrorString);
 			});
 	};
 
@@ -56,7 +62,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				fullWidth
 				required
 				id='email'
-				label='Email'
+				label={translateString('login.email', 'Email')}
 				margin='normal'
 				onChange={(event) =>
 					handleRegistrationChange('email', event.target.value)
@@ -69,7 +75,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				fullWidth
 				required
 				id='password'
-				label='Password'
+				label={translateString('login.password', 'Password')}
 				margin='normal'
 				onChange={(event) =>
 					handleRegistrationChange('password', event.target.value)
@@ -84,7 +90,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 				helperText={error}
 				required
 				id='password-confirmation'
-				label='Confirm Password'
+				label={translateString('register.confirmPassword', 'Confirm Password')}
 				margin='normal'
 				onChange={(event) =>
 					handleRegistrationChange('passwordConfirmation', event.target.value)
@@ -100,7 +106,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 					onClick={handleRegisterUser}
 					style={{ width: '100%' }}
 				>
-					Sign Up
+					<FormattedMessage id='register.signUp' defaultMessage="Sign Up"/>
 				</Button>
 			</div>
 		</div>
