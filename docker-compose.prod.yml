@@ -11,7 +11,7 @@ services:
       - ./app/static:/home/node/dist
     environment:
       - LOG_FORMAT=dev
-      - NODE_ENV
+      - NODE_ENV=production
       - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - INTERNAL_API_BASE_URL=http://api:8000
@@ -40,7 +40,7 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=project-name
       - ENVIRONMENT=production
-      - NODE_ENV
+      - NODE_ENV=production
       - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-false}
       - AUDIT_LOGS_DIR=/home/node/log
       - GIT_TAG_NUMBER

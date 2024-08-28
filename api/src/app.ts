@@ -1,40 +1,45 @@
-import path from 'path'
-import favicon from 'serve-favicon'
+import configuration from '@feathersjs/configuration'
+import express, { errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
+import { feathers } from '@feathersjs/feathers'
+import socketio from '@feathersjs/socketio'
 import compress from 'compression'
-import helmet from 'helmet'
 import cors from 'cors'
-import logger from './logger'
-import winston from 'winston'
-import DailyRotateFile from 'winston-daily-rotate-file'
+import { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
+import helmet from 'helmet'
 import maxBy from 'lodash/maxBy'
 import moment from 'moment'
-
-import { Application } from './declarations'
-import { feathers } from '@feathersjs/feathers'
-import configuration from '@feathersjs/configuration'
-import { NextFunction, Request, Response } from 'express'
-import express, { errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
-//import socketio from '@feathersjs/socketio'
-
-//import middleware from './middleware'
-import services from './services'
+import path from 'path'
+import favicon from 'serve-favicon'
+import winston from 'winston'
+import DailyRotateFile from 'winston-daily-rotate-file'
 import appHooks from './app.hooks'
-//import channels from './channels'
 
 import authentication from './authentication'
+import channels from './channels'
+
+import { Application } from './declarations'
+import logger from './logger'
+
+import middleware from './middleware'
 
 import sequelize from './sequelize'
+import services from './services'
 
 const { printf } = winston.format
 
 const app: Application = express(feathers())
 
-const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
-const APP_BASE_URL = process.env.BASE_URL ?? 'http://127.0.0.1:4005'
-
 // Load app configuration
 app.configure(configuration())
+
+const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
+const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://127.0.0.1:4002'
+
+const corsOptions = {
+  origin: APP_BASE_URL,
+  credentials: true
+}
 
 //get filename for the audit log file to be created upon deploy
 const getLogFileName = (): string => {
@@ -107,7 +112,7 @@ app.configure(() => {
 app.use(helmet())
 app.use(helmet.hsts({ maxAge: 31536000, preload: true }))
 app.use(helmet.referrerPolicy({ policy: 'no-referrer' }))
-app.use(cors({ origin: [ APP_BASE_URL ] }))
+app.use(cors(corsOptions))
 app.use(compress())
 app.use(json())
 app.use(urlencoded({ extended: true }))
@@ -119,18 +124,18 @@ app.use('/', serveStatic(app.get('public')))
 
 // Set up Plugins and providers
 app.configure(rest())
-//app.configure(socketio())
+app.configure(socketio({ cors: corsOptions }))
 
 app.configure(sequelize)
 
 // Configure other middleware (see `middleware/index.ts`)
-//app.configure(middleware)
+app.configure(middleware)
 app.configure(authentication)
 
 // Set up our services (see `services/index.ts`)
 app.configure(services)
 // Set up event channels (see channels.js)
-//app.configure(channels)
+app.configure(channels)
 
 // Configure a middleware for 404s and the error handler
 app.use(notFound())

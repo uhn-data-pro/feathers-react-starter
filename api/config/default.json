@@ -35,7 +35,8 @@
     "host": "POSTGRES_HOST"
   },
   "static": {
-    "uploadRoot": "/home/node/uploads"
+    "uploadRoot": "/home/node/uploads",
+    "fileBeatRoot": "/home/node/uploads/filebeat_logs"
   },
   "audit": {
     "dirname": "AUDIT_LOGS_DIR"

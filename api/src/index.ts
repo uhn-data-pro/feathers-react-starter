@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import logger from './logger'
 import app from './app'
+import logger from './logger'
 
 const port = app.get('port')
 
@@ -9,4 +9,13 @@ process.on('unhandledRejection', (reason, p) =>
 
 app.listen(port).then(() => {
   logger.info('Feathers application started on http://%s:%d', app.get('host'), port)
+  try {
+    app.io.emit('HELLO')
+    app.io.on('connection', (socket: any) => {
+      console.log('YAY')
+    })
+  } catch (e: any) {
+    console.log(e)
+  }
+
 })
