@@ -85,7 +85,17 @@
     "@feathersjs/errors" "^5.0.29"
     "@feathersjs/feathers" "^5.0.29"
 
-"@feathersjs/authentication-local@^5.0.29":
+"@feathersjs/authentication-client@^5.0.11":
+  version "5.0.29"
+  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-5.0.29.tgz#79011d4ccd4ed58586336dc59c825335409dba1b"
+  integrity sha512-F0aIJPYLSvDJOnPBqhXOT1UUD/IAxJ2u8xdKGDY+sWGpqCIDMl32PDqImilqC8+G+/BmKJ8Rjhe81oXEbbhOBw==
+  dependencies:
+    "@feathersjs/authentication" "^5.0.29"
+    "@feathersjs/commons" "^5.0.29"
+    "@feathersjs/errors" "^5.0.29"
+    "@feathersjs/feathers" "^5.0.29"
+
+"@feathersjs/authentication-local@^5.0.11", "@feathersjs/authentication-local@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-local/-/authentication-local-5.0.29.tgz#137c69eea990d65e7eb5c9d204391b3c9da8caa0"
   integrity sha512-Xkv1oCxn4eZGFWM61Wgo0ghabJIHg0xhkr5zy3glTDZFzqmS8xsoRyQufBnzEd8zMQlw09AK/YbFRNWUc8lNIQ==
@@ -114,7 +124,7 @@
     koa-session "^6.4.0"
     qs "^6.12.3"
 
-"@feathersjs/authentication@^5.0.29":
+"@feathersjs/authentication@^5.0.11", "@feathersjs/authentication@^5.0.29":
   version "5.0.29"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication/-/authentication-5.0.29.tgz#e7952d78645e29383fa121a381ed3002acb2000a"
   integrity sha512-kYC1x1etmZ9Q9EZXd6bbMlk1myaHS5TsW3kOty0m6amG9BDcFdEyh9ij/JgVuL0EJ+7KOHweOypdJ3bIpiinqQ==
@@ -1546,7 +1556,22 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-feathers-hooks-common@^8.2.1:
+feathers-authentication-management@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-management/-/feathers-authentication-management-5.1.0.tgz#8212d52a4a481799a23476f603a50aa831adbcd9"
+  integrity sha512-ts1oPcnf1m/Jm5PH+AFWEc4vnq4zsmuuYMaGOHOmG4AdKAd+eX6hkogoCYxZO6/+LSj0MGK2b1iPEXt2TvO9gQ==
+  dependencies:
+    "@feathersjs/authentication" "^5.0.11"
+    "@feathersjs/authentication-client" "^5.0.11"
+    "@feathersjs/authentication-local" "^5.0.11"
+    "@feathersjs/errors" "^5.0.11"
+    bcryptjs "^2.4.3"
+    debug "^4.3.4"
+    feathers-hooks-common "^8.1.1"
+    lodash "^4.17.21"
+    type-fest "^4.6.0"
+
+feathers-hooks-common@^8.1.1, feathers-hooks-common@^8.2.1:
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/feathers-hooks-common/-/feathers-hooks-common-8.2.1.tgz#0d36f2c3e582cdaf52f38aa2aeb11db24f3502c2"
   integrity sha512-t3gLAaTY5ufnAoKczLCNXJddq/L9ORrvxAlfuU2Azgoi0b6X3t0Y91l1JCJAvixzxxwLJmgdnKpFX32+CvEn0A==
@@ -3251,6 +3276,11 @@ type-check@^0.4.0, type-check@~0.4.0:
   integrity sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==
   dependencies:
     prelude-ls "^1.2.1"
+
+type-fest@^4.6.0:
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.25.0.tgz#b190374f969631866889bbdb01ece17ca424ee60"
+  integrity sha512-bRkIGlXsnGBRBQRAY56UXBm//9qH4bmJfFvq83gSz41N282df+fjy8ofcEgc1sM8geNt5cl6mC2g9Fht1cs8Aw==
 
 type-is@^1.6.16, type-is@~1.6.18:
   version "1.6.18"

@@ -6,28 +6,6 @@
     "default": 10,
     "max": 50
   },
-  "authentication": {
-    "entity": "user",
-    "service": "users",
-    "secret": "TMAADbZRN3yGq0g1SeURuiP09cc=",
-    "authStrategies": [
-      "jwt",
-      "local"
-    ],
-    "jwtOptions": {
-      "header": {
-        "typ": "access"
-      },
-      "audience": "https://yourdomain.com",
-      "issuer": "feathers",
-      "algorithm": "HS256",
-      "expiresIn": "1d"
-    },
-    "local": {
-      "usernameField": "email",
-      "passwordField": "password"
-    }
-  },
   "postgres": {
     "database": "POSTGRES_DB",
     "username": "POSTGRES_USER",

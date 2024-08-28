@@ -13,20 +13,19 @@ import path from 'path'
 import favicon from 'serve-favicon'
 import winston from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
-import appHooks from './app.hooks'
 
+import appHooks from './app.hooks'
 import authentication from './authentication'
 import channels from './channels'
 
 import { Application } from './declarations'
 import logger from './logger'
-
 import middleware from './middleware'
-
 import sequelize from './sequelize'
 import services from './services'
 
 const { printf } = winston.format
+
 
 const app: Application = express(feathers())
 
@@ -112,7 +111,7 @@ app.configure(() => {
 app.use(helmet())
 app.use(helmet.hsts({ maxAge: 31536000, preload: true }))
 app.use(helmet.referrerPolicy({ policy: 'no-referrer' }))
-app.use(cors(corsOptions))
+app.use(cors({ origin: [ APP_BASE_URL ] }))
 app.use(compress())
 app.use(json())
 app.use(urlencoded({ extended: true }))
@@ -121,10 +120,15 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')))
 // Host the public folder
 app.use('/', serveStatic(app.get('public')))
 
-
 // Set up Plugins and providers
 app.configure(rest())
-app.configure(socketio({ cors: corsOptions }))
+app.configure(socketio({
+  cors: {
+    origin: APP_BASE_URL,
+    methods: [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS' ],
+    allowedHeaders: [ 'Authorization', 'Content-Type' ]
+  }
+}))
 
 app.configure(sequelize)
 

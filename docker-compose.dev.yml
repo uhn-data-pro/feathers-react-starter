@@ -34,7 +34,7 @@ services:
     environment:
       - API_BASE_URL=http://localhost:$API_PORT
       - APP_BASE_URL=http://localhost:$APP_PORT
-      - DEBUG=socket.io*
+      - DEBUG=*
       - LOG_FORMAT=dev
       - POSTGRES_DB=project-name
       - POSTGRES_HOST=postgres
