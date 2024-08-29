@@ -20,8 +20,8 @@ export default function(app: Application) {
 
   app.set('sequelizeClient', sequelize)
 
-  app.setup = function(server?: any): Promise<Application> {
-    const result = oldSetup.apply(this, server)
+  app.setup = function(...args) {
+    const result = oldSetup.apply(this, args)
 
     // Set up data relationships
     const models = <any> sequelize.models

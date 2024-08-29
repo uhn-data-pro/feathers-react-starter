@@ -1,9 +1,8 @@
 import configuration from '@feathersjs/configuration'
-import express, { errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
+import express, { cors, errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
 import { feathers } from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio'
 import compress from 'compression'
-import cors from 'cors'
 import { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
 import helmet from 'helmet'
@@ -17,7 +16,6 @@ import DailyRotateFile from 'winston-daily-rotate-file'
 import appHooks from './app.hooks'
 import authentication from './authentication'
 import channels from './channels'
-
 import { Application } from './declarations'
 import logger from './logger'
 import middleware from './middleware'
@@ -26,19 +24,15 @@ import services from './services'
 
 const { printf } = winston.format
 
+// Set timezone
+process.env.TZ = 'America/New_York'
+const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
+const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://127.0.0.1:4002'
 
 const app: Application = express(feathers())
 
 // Load app configuration
 app.configure(configuration())
-
-const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
-const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://127.0.0.1:4002'
-
-const corsOptions = {
-  origin: APP_BASE_URL,
-  credentials: true
-}
 
 //get filename for the audit log file to be created upon deploy
 const getLogFileName = (): string => {

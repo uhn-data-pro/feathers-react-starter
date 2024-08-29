@@ -16,6 +16,8 @@ services:
       - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - INTERNAL_API_BASE_URL=http://api:8000
+      - ENVIRONMENT=development
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "$APP_PORT:8000"
     entrypoint: node start.js
@@ -32,9 +34,10 @@ services:
       - ./api/static/uploads:/home/node/uploads
       - filebeat-logs:/home/node/uploads/filebeat_logs
     environment:
+      - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - APP_BASE_URL=http://localhost:$APP_PORT
-      - DEBUG=*
+      - DEBUG=feathers-react-starter:*
       - LOG_FORMAT=dev
       - POSTGRES_DB=project-name
       - POSTGRES_HOST=postgres
@@ -91,4 +94,4 @@ networks:
       com.docker.network.driver.mtu: 1450
     ipam:
       config:
-        - subnet: 10.102.0.0/24
+        - subnet: 10.103.0.0/24
