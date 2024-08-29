@@ -1,5 +1,6 @@
 import { SequelizeService } from 'feathers-sequelize'
 import type { SequelizeAdapterOptions } from 'feathers-sequelize/src/declarations'
+
 import { Application } from '../../declarations'
 
 

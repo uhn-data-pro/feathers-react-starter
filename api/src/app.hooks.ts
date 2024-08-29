@@ -1,7 +1,6 @@
 // Application hooks that run for every service
-import { logger } from './hooks'
 import { HookOptions } from './declarations'
-
+import { logger } from './hooks'
 
 const hooks: HookOptions = {
   around: {
