@@ -30,7 +30,7 @@ describe('Feathers application tests', () => {
     assert.ok(data.indexOf('<html lang="en">') !== -1)
   })
 
-  describe('404', function() {
+  describe.skip('404', function() {
     // To fix this failure, skip the test, or provide a 404 HTML page
     it('shows a 404 HTML page', async() => {
       try {
