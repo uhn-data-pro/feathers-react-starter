@@ -19,18 +19,24 @@ export default function Login({ authenticate }: LoginProps) {
 			<TextField
 				autoComplete='true'
 				id='email-local'
+        fullWidth
+        margin='normal'
 				label={translateString('login.email', 'email')}
 				onChange={(e) => setEmail(e.target.value)}
 				type='email'
 				value={email}
+        variant='outlined'
 			/>
 			<TextField
 				autoComplete='true'
 				id='password-local'
+        fullWidth
+        margin='normal'
 				label={translateString('login.password', 'password')}
 				onChange={(e) => setPassword(e.target.value)}
 				type='password'
 				value={password}
+        variant='outlined'
 			/>
 			<div style={{ textAlign: 'center', marginBottom: 20, marginTop: 16 }}>
 				<Button
