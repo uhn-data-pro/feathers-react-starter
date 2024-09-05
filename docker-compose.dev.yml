@@ -1,7 +1,9 @@
-version: '2.1'
+version: '2.4'
 
 services:
   app:
+    platform: linux/amd64
+    container_name: app
     build: ./app
     volumes:
       - ./app/.babelrc:/home/node/.babelrc
@@ -11,22 +13,30 @@ services:
       - ./app/static:/home/node/dist
     environment:
       - LOG_FORMAT=dev
-      - NODE_ENV
+      - NODE_ENV=development
       - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - INTERNAL_API_BASE_URL=http://api:8000
+      - ENVIRONMENT=development
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "$APP_PORT:8000"
     entrypoint: node start.js
+    networks:
+      - dev
 
   api:
+    platform: linux/amd64
+    container_name: api
     build: ./api
     volumes:
       - ./api/config:/home/node/config
       - ./api/src:/home/node/src
       - ./api/scripts:/home/node/scripts
       - ./api/static/uploads:/home/node/uploads
+      - filebeat-logs:/home/node/uploads/filebeat_logs
     environment:
+      - SPA_BASE_URL=http://localhost:$APP_PORT
       - API_BASE_URL=http://localhost:$API_PORT
       - APP_BASE_URL=http://localhost:$APP_PORT
       - DEBUG=feathers-react-starter:*
@@ -34,17 +44,36 @@ services:
       - POSTGRES_DB=project-name
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=project-name
+      - ENVIRONMENT=development
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-false}
+      - AUDIT_LOGS_DIR=/home/node/log
+      - GIT_TAG_NUMBER
     env_file:
       - ./api/secrets/POSTGRES_PASSWORD
     ports:
-    - "$API_PORT:8000"
-    - "9230:9229"
-    command: ./node_modules/.bin/nodemon --inspect=9229 src/index.js
+      - "$API_PORT:8000"
+      - "9230:9229"
+    command: yarn run dev
+    networks:
+      - dev
     depends_on:
       postgres:
         condition: service_started
 
+  filebeat:
+    platform: linux/amd64
+    container_name: filebeat
+    build: ./filebeat
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./filebeat/filebeat.dev.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat/logs:/usr/share/filebeat/dockerlogs
+      - filebeat-logs:/usr/share/filebeat/logs
+
   postgres:
+    platform: linux/amd64
+    container_name: postgres
     image: postgres:9.6
     environment:
       - POSTGRES_DB=project-name
@@ -54,14 +83,19 @@ services:
       - ./api/secrets/POSTGRES_PASSWORD
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - dev
+    ports:
+      - 5433:5432
 
 volumes:
+  filebeat-logs: {}
   postgres-data: {}
 
 networks:
-  default:
+  dev:
     driver_opts:
       com.docker.network.driver.mtu: 1450
     ipam:
       config:
-      - subnet: 10.102.0.0/24
+        - subnet: 10.103.0.0/24

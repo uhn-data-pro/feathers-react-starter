@@ -1,14 +1,19 @@
-import feathers from '@feathersjs/client';
-import socketio from '@feathersjs/socketio-client';
-import io from 'socket.io-client';
+import authentication from '@feathersjs/authentication-client'
+import feathers from '@feathersjs/client'
+import socketio from '@feathersjs/socketio-client'
+import { io } from 'socket.io-client'
 
-import { BASE_URL } from './constants';
+import { BASE_URL, NODE_ENV } from './constants'
 
-const app: any = feathers();
-const socket = io(BASE_URL);
+const socket = NODE_ENV === 'production'
+  ? io(BASE_URL, { path: '/api/socket.io/' })
+  : io(BASE_URL)
 
-app.configure(socketio(socket, { timeout: 10000 })); // 10 second timeout
+const app: any = feathers()
 
-app.configure(feathers.authentication());
+const storage = window.sessionStorage
 
-export { app as default };
+app.configure(socketio(socket))
+app.configure(authentication({ storage: storage }))
+
+export { app as default }

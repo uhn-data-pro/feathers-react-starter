@@ -1,0 +1,22 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "include": [],
+  "references": [
+    {
+      "path": "./src"
+    },
+    {
+      "path": "./tests"
+    }
+  ]
+}

@@ -1,11 +1,11 @@
-'use strict'
+import { Application } from '../../src/declarations'
 
-module.exports = function (app) {
+export default function (app: Application) {
   const db = app.get('sequelizeClient')
 
   console.log('Resetting all models...')
 
-  const models = db.models
+  const models = <any> db.models
   Object.keys(models).forEach(name => {
     if ('associate' in models[name]) {
       models[name].associate(models)
@@ -14,5 +14,5 @@ module.exports = function (app) {
 
   return db.sync({ force: true })
     .then(() => console.log('Successfully forcefully synced database'))
-    .catch(err => console.error(err))
+    .catch((err: any) => console.error(err))
 }

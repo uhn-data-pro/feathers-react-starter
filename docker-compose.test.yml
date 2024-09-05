@@ -1,0 +1,58 @@
+version: '2.4'
+
+services:
+  api-test:
+    platform: linux/amd64
+    container_name: api-test
+    build: ./api
+    volumes:
+      - ./api/config:/home/node/config
+      - ./api/src:/home/node/src
+      - ./api/scripts:/home/node/scripts
+      - ./api/static/uploads:/home/node/uploads
+      - ./api/test:/home/node/test
+    environment:
+      - BASE_URL=http://127.0.0.1:$API_PORT
+      - DEBUG=feathers-react-starter:*
+      - LOG_FORMAT=dev
+      - POSTGRES_DB=project-name
+      - POSTGRES_HOST=postgres-test
+      - POSTGRES_USER=project-name
+      - ENVIRONMENT=test
+      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-false}
+      - AUDIT_LOGS_DIR=/home/node/log
+      - GIT_TAG_NUMBER
+    env_file:
+      - ./api/secrets/POSTGRES_PASSWORD
+    ports:
+      - "$TEST_PORT:8000"
+      - "9231:9229"
+    command: yarn run mocha
+    networks:
+      - test
+    depends_on:
+      postgres-test:
+        condition: service_started
+
+  postgres-test:
+    platform: linux/amd64
+    container_name: postgres-test
+    image: postgres:9.6
+    environment:
+      - POSTGRES_DB=project-name
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=project-name
+    env_file:
+      - ./api/secrets/POSTGRES_PASSWORD
+    networks:
+      - test
+    ports:
+      - 5435:5432
+
+networks:
+  test:
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
+    ipam:
+      config:
+        - subnet: 10.105.0.0/24
