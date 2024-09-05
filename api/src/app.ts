@@ -22,6 +22,7 @@ import middleware from './middleware'
 import sequelize from './sequelize'
 import services from './services'
 
+// eslint-disable-next-line import/no-named-as-default-member
 const { printf } = winston.format
 
 // Set timezone

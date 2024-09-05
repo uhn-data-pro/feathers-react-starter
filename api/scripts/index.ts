@@ -4,12 +4,13 @@
 // and anotherScript will be ran after scriptName finishes
 // Scripts should return a Promise if they want to be async
 
-import path from 'path'
 import { Promise } from 'bluebird'
+import path from 'path'
 
 // Import the API subapp
 import app from '../src/app'
 import { Application } from '../src/declarations'
+
 
 interface Script {
   default: (app: Application) => void

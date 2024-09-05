@@ -4,10 +4,12 @@ import {
   HookOptions as FeathersHookOptions,
   NextFunction
 } from '@feathersjs/feathers'
+
 import type { BuildOptions, Model, Sequelize } from 'sequelize'
 import type { Logger } from 'winston'
 
 import { User } from './models/users.model'
+
 
 export { NextFunction }
 
