@@ -1,0 +1,12 @@
+{
+  "extends": "..",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../lib",
+    "rootDir": ".",
+    "declarationMap": true
+  },
+  "include": [
+    "./**/*.ts"
+  ]
+}

@@ -9,8 +9,17 @@
   },
   "bugs": {},
   "scripts": {
-    "db:reset": "docker-compose -f docker-compose.yml run --rm api node scripts db/reset",
-    "psql": "docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name"
+    "db:reset": "docker-compose -f docker-compose.dev.yml run --rm api npx ts-node scripts db/reset",
+    "db:test-data": "docker-compose -f docker-compose.dev.yml run --rm api npx ts-node scripts db/reset db/test-data",
+    "psql": "docker-compose -f docker-compose.dev.yml exec postgres psql -U project-name project-name",
+    "pluck:api": "docker cp api:/home/node/package.json api && docker cp api:/home/node/yarn.lock api",
+    "pluck:app": "docker cp app:/home/node/package.json app && docker cp app:/home/node/yarn.lock app",
+    "migrate": "docker-compose -f docker-compose.dev.yml run --rm api npm run db:migrate",
+    "migrate:status": "docker-compose -f docker-compose.dev.yml run --rm api npm run db:migrate:status",
+    "migrate:undo": "docker-compose -f docker-compose.dev.yml run --rm api npm run db:migrate:undo",
+    "migrate:create": "docker-compose -f docker-compose.dev.yml run --rm api npm run db:migrate:create --",
+    "test:setup": "docker-compose -f docker-compose.test.yml up -d api-test",
+    "test:run": "docker-compose -f docker-compose.test.yml run --rm api-test npm run mocha"
   },
   "dependencies": {
     "node-base64-image": "^1.0.7",

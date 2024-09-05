@@ -1,0 +1,18 @@
+{
+  "extends": "..",
+  "ts-node": {
+    "transpileOnly": true
+  },
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": ".",
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../src"
+    }
+  ]
+}

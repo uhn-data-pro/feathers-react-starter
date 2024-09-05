@@ -1,0 +1,9 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/logs/abstract_dev.log
+
+output:
+  console:
+    pretty: true

@@ -131,7 +131,7 @@ module.exports = function (opts) {
 		entry: IS_BROWSER ? './src/client.tsx' : './src/server.ts',
 		devtool: env.isProduction
 			? 'cheap-module-source-map'
-			: 'cheap-module-eval-source-map',
+      : 'eval-cheap-module-source-map',
 		output: {
 			path: IS_BROWSER ? env.STATIC_ROOT : path.resolve(__dirname, 'bin'),
 			publicPath: PUBLIC_PATH,
