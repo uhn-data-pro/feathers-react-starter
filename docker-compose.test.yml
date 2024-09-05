@@ -1,8 +1,8 @@
 version: '2.4'
 
 services:
-  platform: linux/amd64
   api-test:
+    platform: linux/amd64
     container_name: api-test
     build: ./api
     volumes:
