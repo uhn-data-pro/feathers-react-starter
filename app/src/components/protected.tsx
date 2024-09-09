@@ -11,8 +11,8 @@ const Protected = ({ children }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isAuthed && !isAuthLoading) navigate('/login')
-  })
+    if (!isAuthed && !isAuthLoading) navigate('/login', {replace: true})
+  }, [isAuthed, isAuthLoading])
 
   return(
     <div>

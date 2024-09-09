@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import CircularProgress from '@mui/material/CircularProgress';
-import Paper from '@mui/material/Paper';
-import Snackbar from '@mui/material/Snackbar';
+import CircularProgress from '@mui/material/CircularProgress'
+import Paper from '@mui/material/Paper'
+import Snackbar from '@mui/material/Snackbar'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-import app from 'STARTER/feathers-client';
-import Login from 'STARTER/components/login';
-import Registration from 'STARTER/components/registration';
+import app from 'STARTER/feathers-client'
+import Login from 'STARTER/components/login'
+import Registration from 'STARTER/components/registration'
 import FormattedMessage from 'STARTER/components/formattedMessage'
 import { AuthContext, AuthContextType, authData } from 'STARTER/contexts/auth'
 
-import { isMobile } from 'STARTER/utils';
+import { isMobile } from 'STARTER/utils'
 
 export default function Home() {
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
@@ -26,6 +26,10 @@ export default function Home() {
   let navigate = useNavigate()
 
 	const onMobile = isMobile();
+
+  useEffect(() => {
+		if (isAuthed) navigate('/dashboard', { replace: true })
+	}, [isAuthed])
 
 	const textStyle = {
 		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
