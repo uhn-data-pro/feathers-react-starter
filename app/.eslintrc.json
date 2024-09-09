@@ -1,0 +1,73 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:unused-imports"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          [
+            "index",
+            "sibling",
+            "parent",
+            "internal"
+          ],
+          "type"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-interface": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": true,
+      "node": true
+    }
+  },
+  "ignorePatterns": [
+    "lib/**",
+    "node_modules/**"
+  ]
+}
