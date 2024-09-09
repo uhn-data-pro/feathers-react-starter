@@ -8,7 +8,7 @@
 		"start": "node start.js",
 		"build-client": "webpack --env.platform=browser",
 		"build-server": "webpack --env.platform=node",
-		"style": "eslint './**/*.ts' './**/*.tsx' --fix",
+		"style": "eslint './**/*.{ts,tsx,js,jsx}' --fix",
 		"dist:clean": "ls -t dist/main.*.js | tail -n +2 | xargs -r rm --; ls -t dist/main.*.LICENSE | tail -n +2 | xargs -r rm --; ls -t dist/main.*.map | tail -n +2 | xargs -r rm --;"
 	},
 	"dependencies": {

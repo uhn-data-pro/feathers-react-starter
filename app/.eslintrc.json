@@ -67,6 +67,8 @@
     }
   },
   "ignorePatterns": [
+    "dist/**",
+    "static/**",
     "lib/**",
     "node_modules/**"
   ]

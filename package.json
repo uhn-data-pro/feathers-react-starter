@@ -9,6 +9,9 @@
   },
   "bugs": {},
   "scripts": {
+    "lint:api": "docker-compose -f docker-compose.dev.yml run --rm api npm run lint",
+    "lint:app": "docker-compose -f docker-compose.dev.yml run --rm app npm run style",
+    "lint": "npm run lint:api && npm run lint:app",
     "db:reset": "docker-compose -f docker-compose.dev.yml run --rm api npx ts-node scripts db/reset",
     "db:test-data": "docker-compose -f docker-compose.dev.yml run --rm api npx ts-node scripts db/reset db/test-data",
     "psql": "docker-compose -f docker-compose.dev.yml exec postgres psql -U project-name project-name",
