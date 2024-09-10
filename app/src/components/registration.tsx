@@ -39,7 +39,7 @@ export default function Registration({ authenticate }: RegistrationProps) {
 		}
 
 		app
-			.service('users')
+			.service('registration')
 			.create({ email, password })
 			.then(() => authenticate({ strategy: 'local', email, password }))
 			.catch(() => {

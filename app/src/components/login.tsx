@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import Snackbar from '@mui/material/Snackbar'
 
 import FormattedMessage from 'STARTER/components/formattedMessage'
 import { translateString } from 'STARTER/utils'
@@ -13,9 +14,31 @@ export interface LoginProps {
 export default function Login({ authenticate }: LoginProps) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [snackBarOpen, setSnackBarOpen] = useState(false);
+	const [snackBarMessage, setSnackBarMessage] = useState('');
+
+	const handleCloseSnackBar = () => {
+		setSnackBarOpen(false)
+		setSnackBarMessage('')
+	};
+
+	const handleLogin = () => {
+		return authenticate({ strategy: 'local', email, password })
+		.catch(() => {
+			setSnackBarOpen(true);
+			setSnackBarMessage("Login unsuccessful");
+		});
+	}
 
 	return (
 		<div style={{ padding: '0 20px' }}>
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+				open={snackBarOpen}
+				autoHideDuration={6000}
+				onClose={handleCloseSnackBar}
+				message={snackBarMessage}
+			/>
 			<TextField
 				autoComplete='true'
 				id='email-local'
@@ -43,7 +66,7 @@ export default function Login({ authenticate }: LoginProps) {
 					variant='outlined'
 					fullWidth
 					size='large'
-					onClick={() => authenticate({ strategy: 'local', email, password })}
+					onClick={() => handleLogin()}
 				>
 					<FormattedMessage id='login.login' defaultMessage='Login'/>
 				</Button>
