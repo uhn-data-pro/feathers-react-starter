@@ -2,7 +2,7 @@
   "extends": "..",
   "compilerOptions": {
     "composite": true,
-    "outDir": "../lib/src",
+    "outDir": "../lib/scripts",
     "rootDir": ".",
     "declaration": true,
     "declarationMap": true

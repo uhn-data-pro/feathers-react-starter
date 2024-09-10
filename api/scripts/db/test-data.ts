@@ -1,7 +1,6 @@
 import { Promise } from 'bluebird'
-import { Model } from 'sequelize'
 
-import { Application } from '../../src/declarations'
+import { Application, DBModelStatic } from '../../src/declarations'
 import { User } from '../../src/models/users.model'
 
 const users: Partial<User>[] = [
@@ -27,7 +26,7 @@ export default function(app: Application) {
 
   const serviceCreate = (service: any, data: any, params: any) => {
     if (Array.isArray(data)) {
-      return (Promise as any).each(data, (item: Partial<Model>) => app.service(service).create(item, params))
+      return (Promise as any).each(data, (item: Partial<DBModelStatic<any>>) => app.service(service).create(item, params))
     }
 
     return app.service(service).create(data, params)
