@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "es5",
 		"module": "esnext",
-		"lib": ["es2020", "dom"],
+		"lib": ["es2020", "dom","webworker"],
 		"jsx": "react",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
@@ -10,6 +10,12 @@
 		"declaration": true,
 		"outDir": "./lib",
 		"resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+        "STARTER/*": [
+            "src/*"
+        ]
+    }
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "**/__tests__/*"],

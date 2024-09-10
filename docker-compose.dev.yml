@@ -21,7 +21,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
     ports:
       - "$APP_PORT:8000"
-    entrypoint: node start.js
+    command: node start.js
     networks:
       - dev
 
