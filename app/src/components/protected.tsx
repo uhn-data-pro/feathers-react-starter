@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
-import { AuthContext, AuthContextType } from 'STARTER/contexts/auth'
-import {
-  useNavigate
-} from 'react-router-dom'
-
 import CircularProgress from '@mui/material/CircularProgress'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { AuthContext, AuthContextType } from 'STARTER/contexts/auth'
+
 
 const Protected = ({ children }) => {
   const { isAuthed, isAuthLoading } = useContext(AuthContext) as AuthContextType

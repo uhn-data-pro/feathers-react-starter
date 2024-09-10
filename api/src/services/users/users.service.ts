@@ -1,8 +1,8 @@
 // Initializes the `users` service on path `/users`
-import { Application } from '../../declarations'
-import createModel from '../../models/users.model'
 import { Users } from './users.class'
 import hooks from './users.hooks'
+import { Application } from '../../declarations'
+import createModel from '../../models/users.model'
 
 
 // Add this service to the service type index
@@ -28,4 +28,4 @@ export default function(app: Application): void {
   const service = app.service('users')
 
   service.hooks(hooks)
-};
+}

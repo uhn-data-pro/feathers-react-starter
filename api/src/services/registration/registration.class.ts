@@ -1,12 +1,8 @@
+import { BadRequest } from '@feathersjs/errors'
+import pick from 'lodash/pick'
 
-const { BadRequest } = require('@feathersjs/errors')
-
-import { Params } from '@feathersjs/feathers'
-
-const pick = require('lodash/pick')
-
-import { User } from '../../models/users.model'
 import { Application } from '../../declarations'
+import { User } from '../../models/users.model'
 
 
 export class RegistrationService  {
@@ -22,10 +18,10 @@ export class RegistrationService  {
       ...pick(data, ['email', 'password' ])
     }
     return this.app.service('users').create(userToCreate)
-    .catch((error : Error) => {
-      console.log(error.message)
-      throw new BadRequest('User cannot be registered')
-    })
+      .catch((error : Error) => {
+        console.log(error.message)
+        throw new BadRequest('User cannot be registered')
+      })
   }
 
-};
+}

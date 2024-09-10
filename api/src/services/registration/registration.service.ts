@@ -1,7 +1,7 @@
 // Initializes the `registration` service on path `/registration`
-import { Application } from '../../declarations'
 import { RegistrationService } from './registration.class'
 import hooks from './registration.hooks'
+import { Application } from '../../declarations'
 
 
 // Add this service to the service type index
@@ -19,4 +19,4 @@ export default function(app: Application): void {
   const service = app.service('registration')
 
   service.hooks(hooks)
-};
+}

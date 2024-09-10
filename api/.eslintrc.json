@@ -35,6 +35,14 @@
       "error",
       "never"
     ],
+    "eol-last":  [
+      "error",
+      "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      { "max": 2, "maxEOF": 0 }
+    ],
     "unused-imports/no-unused-imports": "error",
     "import/order": [
       "error",

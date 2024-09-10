@@ -2,9 +2,10 @@ import * as feathersAuthentication from '@feathersjs/authentication'
 import * as local from '@feathersjs/authentication-local'
 import { disallow, iff, isProvider } from 'feathers-hooks-common'
 import get from 'lodash/get'
-import { HookContext, HookOptions } from '../../declarations'
 
 import { Users } from './users.class'
+import { HookContext, HookOptions } from '../../declarations'
+
 
 const { authenticate } = feathersAuthentication.hooks
 const { hashPassword, protect } = local.hooks

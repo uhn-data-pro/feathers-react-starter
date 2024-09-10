@@ -2,9 +2,8 @@ import * as local from '@feathersjs/authentication-local'
 
 const { protect } = local.hooks
 
-import { HookOptions } from '../../declarations'
-
 import { RegistrationService } from './registration.class'
+import { HookOptions } from '../../declarations'
 
 const hooks: HookOptions<RegistrationService> = {
   around: {
