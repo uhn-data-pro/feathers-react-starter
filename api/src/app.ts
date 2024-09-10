@@ -1,16 +1,17 @@
+import fs from 'fs'
+import path from 'path'
+
 import configuration from '@feathersjs/configuration'
 import express, { cors, errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
 import { feathers } from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio'
 import compress from 'compression'
 import { NextFunction, Request, Response } from 'express'
-import fs from 'fs'
-import helmet from 'helmet'
+import helmet, { hsts, referrerPolicy } from 'helmet'
 import maxBy from 'lodash/maxBy'
 import moment from 'moment'
-import path from 'path'
 import favicon from 'serve-favicon'
-import winston from 'winston'
+import winston, {createLogger, format, transports} from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
 
 import appHooks from './app.hooks'
@@ -77,7 +78,7 @@ if(process.env.ENVIRONMENT === 'production') {
       options: { flags: 'a' }
     })
 
-    app.set('auditLogger', winston.createLogger({
+    app.set('auditLogger', createLogger({
       format: format_options,
       transports: [
         rotateFileTransport
@@ -93,19 +94,19 @@ app.configure(() => {
     filename: app.get('static').fileBeatRoot + '/' + filename
   }
 
-  app.set('abstractLogger', winston.createLogger({
+  app.set('abstractLogger', createLogger({
     level: 'info',
-    format: winston.format.json(),
+    format: format.json(),
     transports: [
-      new (winston.transports.File)(options)
+      new (transports.File)(options)
     ]
   }))
 })
 
 // Enable security, CORS, compression, favicon and body parsing
 app.use(helmet())
-app.use(helmet.hsts({ maxAge: 31536000, preload: true }))
-app.use(helmet.referrerPolicy({ policy: 'no-referrer' }))
+app.use(hsts({ maxAge: 31536000, preload: true }))
+app.use(referrerPolicy({ policy: 'no-referrer' }))
 app.use(cors({ origin: [ APP_BASE_URL ] }))
 app.use(compress())
 app.use(json())

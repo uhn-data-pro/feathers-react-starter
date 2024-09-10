@@ -1,5 +1,5 @@
-import React from 'react'
 import { ThemeProvider } from '@mui/material/styles'
+import React from 'react'
 
 const ThemeProviderWrapper = (props) => {
 
@@ -9,7 +9,7 @@ const ThemeProviderWrapper = (props) => {
     <ThemeProvider theme={theme()}>
       {props.children}
     </ThemeProvider>
-  );
+  )
 }
 
 export default ThemeProviderWrapper

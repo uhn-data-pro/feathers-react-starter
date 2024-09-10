@@ -1,5 +1,5 @@
 import authentication from '@feathersjs/authentication-client'
-import feathers from '@feathersjs/client'
+import { feathers } from '@feathersjs/client'
 import socketio from '@feathersjs/socketio-client'
 import { io } from 'socket.io-client'
 

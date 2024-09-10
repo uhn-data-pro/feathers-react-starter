@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from 'react'
 
 import app from 'STARTER/feathers-client'
 
@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
   const [isLoginLoading, setIsLoginLoading] = useState(false)
   const [user, setUser] = useState(null)
 
-  const isAuthedRef = React.useRef(isAuthed)
+  const isAuthedRef = useRef(isAuthed)
   const setIsAuthed = (isAuthed : boolean) => {
     isAuthedRef.current = isAuthed
     _setIsAuthed(isAuthed)
@@ -62,12 +62,11 @@ const AuthProvider = ({ children }) => {
   }
 
   const login = () => {
-    const hash = window.location.hash
     Promise.all([
       app.authentication.getAccessToken(),
       app.authentication.getFromLocation(window.location)
     ])
-      .then(([storageToken, windowToken]) => {
+      .then(([, windowToken]) => {
         if (windowToken) {
           return app.authentication.setAccessToken(windowToken)
         }

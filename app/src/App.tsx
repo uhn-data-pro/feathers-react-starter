@@ -1,11 +1,10 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import AuthContextProvider from 'STARTER/contexts/auth'
-
-import Home from 'STARTER/pages/home'
-import Dashboard from 'STARTER/pages/dashboard'
 import Protected from 'STARTER/components/protected'
+import AuthContextProvider from 'STARTER/contexts/auth'
+import Dashboard from 'STARTER/pages/dashboard'
+import Home from 'STARTER/pages/home'
 
 
 const App = () => {

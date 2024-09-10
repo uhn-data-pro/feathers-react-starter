@@ -1,7 +1,7 @@
 // A hook that logs service methods around, before, after and error
 // Hides authorization headers and logged-in user's password
 import { get, omit } from 'lodash'
-import * as uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 import { HookContext, NextFunction } from '../declarations'
 
@@ -14,7 +14,7 @@ export default () => {
       }
 
       const meta = {
-        event_id: uuid.v4(),
+        event_id: uuidv4(),
         method: hook.method,
         service: hook.path,
         type: hook.type,

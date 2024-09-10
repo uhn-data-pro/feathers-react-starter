@@ -1,10 +1,5 @@
-import * as feathersAuthentication from '@feathersjs/authentication'
-import * as local from '@feathersjs/authentication-local'
-import { disallow, iff, isProvider } from 'feathers-hooks-common'
-import get from 'lodash/get'
-import { HookContext, HookOptions } from '../../declarations'
-
 import { RegistrationService } from './registration.class'
+import { HookOptions } from '../../declarations'
 
 const hooks: HookOptions<RegistrationService> = {
   around: {

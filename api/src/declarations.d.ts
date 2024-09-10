@@ -5,10 +5,10 @@ import {
   NextFunction
 } from '@feathersjs/feathers'
 
+import { User } from './models/users.model'
+
 import type { BuildOptions, Model, Sequelize } from 'sequelize'
 import type { Logger } from 'winston'
-
-import { User } from './models/users.model'
 
 
 export { NextFunction }
