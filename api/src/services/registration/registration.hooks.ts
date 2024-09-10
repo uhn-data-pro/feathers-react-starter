@@ -1,8 +1,8 @@
-import * as feathersAuthentication from '@feathersjs/authentication'
 import * as local from '@feathersjs/authentication-local'
-import { disallow, iff, isProvider } from 'feathers-hooks-common'
-import get from 'lodash/get'
-import { HookContext, HookOptions } from '../../declarations'
+
+const { protect } = local.hooks
+
+import { HookOptions } from '../../declarations'
 
 import { RegistrationService } from './registration.class'
 
@@ -18,7 +18,11 @@ const hooks: HookOptions<RegistrationService> = {
   },
 
   after: {
-    all: [],
+    all: [
+      // Make sure the password field is never sent to the client
+      // Always must be the last hook
+      protect('password')
+    ],
     create: []
   },
 

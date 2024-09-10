@@ -17,7 +17,7 @@ export class RegistrationService  {
     this.app = app
   }
 
-  create(data : any) : Promise<User>{
+  create(data : Partial<User>) : Promise<User>{
     const userToCreate = {
       ...pick(data, ['email', 'password' ])
     }
