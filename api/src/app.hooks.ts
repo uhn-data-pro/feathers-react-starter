@@ -1,6 +1,8 @@
 // Application hooks that run for every service
+import { iff, isProvider } from 'feathers-hooks-common'
+
 import { HookOptions } from './declarations'
-import { logger } from './hooks'
+import { logger, trimWhitespace } from './hooks'
 
 const hooks: HookOptions = {
   around: {
@@ -21,9 +23,9 @@ const hooks: HookOptions = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [ iff(isProvider('external'), trimWhitespace()) ],
     update: [],
-    patch: [],
+    patch: [ iff(isProvider('external'), trimWhitespace()) ],
     remove: []
   },
 
