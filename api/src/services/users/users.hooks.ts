@@ -1,15 +1,18 @@
-import * as feathersAuthentication from '@feathersjs/authentication'
+import { authenticate } from '@feathersjs/authentication'
 import * as local from '@feathersjs/authentication-local'
-import { disallow, iff, isProvider } from 'feathers-hooks-common'
+import {
+  disallow,
+  discard,
+  iff,
+  isProvider,
+} from 'feathers-hooks-common'
 import get from 'lodash/get'
 
-import { Users } from './users.class'
-import { HookContext, HookOptions } from '../../declarations'
+const { hashPassword } = local.hooks
+import type { HookOptions, HookContext } from '../../declarations'
+import type { Users } from './users.class'
 
-
-const { authenticate } = feathersAuthentication.hooks
-const { hashPassword, protect } = local.hooks
-
+const USER_SENSITIVE_FIELDS = ['password', 'participant.mrn', 'verifyToken', 'resetToken']
 
 const restrictToUser = () => async(context: HookContext) => {
   context.id = get(context.params, 'user.id')
@@ -55,7 +58,7 @@ const hooks: HookOptions<Users> = {
     all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect('password')
+      discard(...USER_SENSITIVE_FIELDS)
     ],
     find: [],
     get: [],

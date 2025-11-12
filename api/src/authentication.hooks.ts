@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import pick from 'lodash/pick'
 
 import { HookContext, HookOptions } from './declarations'
-import { User } from './models/users.model'
+import { UserModel } from './models/declarations'
 
 const userFieldsToReturn = [
   'id',
@@ -12,7 +12,7 @@ const userFieldsToReturn = [
 ]
 
 const limitUserFieldsReturned = () => (context: HookContext) => {
-  const user: User = get(context, 'result.user')
+  const user: UserModel = get(context, 'result.user')
 
   if (user) {
     context.result.user = pick(user, userFieldsToReturn)

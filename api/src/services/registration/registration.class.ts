@@ -2,7 +2,7 @@ import { BadRequest } from '@feathersjs/errors'
 import pick from 'lodash/pick'
 
 import { Application } from '../../declarations'
-import { User } from '../../models/users.model'
+import { UserModel } from '../../models/declarations'
 
 
 export class RegistrationService  {
@@ -13,7 +13,7 @@ export class RegistrationService  {
     this.app = app
   }
 
-  create(data : Partial<User>) : Promise<User>{
+  create(data : Partial<UserModel>) : Promise<UserModel>{
     const userToCreate = {
       ...pick(data, ['email', 'password' ])
     }

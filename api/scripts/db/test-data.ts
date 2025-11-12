@@ -1,10 +1,14 @@
-import { Promise } from 'bluebird'
+
+import Bluebird from 'bluebird'
 import { Model } from 'sequelize'
 
 import { Application } from '../../src/declarations'
-import { User } from '../../src/models/users.model'
+import { UserModel } from '../../src/models/declarations'
 
-const users: Partial<User>[] = [
+// This is meant to protect prod, so we default to 'production' if not set to be safe
+const ENVIRONMENT = process.env.ENVIRONMENT || 'production'
+
+const users: Partial<UserModel>[] = [
   {
     email: 'admin@test.com',
     password: 'password',
@@ -12,10 +16,15 @@ const users: Partial<User>[] = [
 ]
 
 export default function(app: Application) {
-  const db = app.get ('sequelizeClient')
+  if (ENVIRONMENT === 'production') {
+    console.log('Test data seeding is disabled in production environment')
+    return
+  }
+
+  const db = app.get('sequelizeClient')
   const models = db.models
 
-  const modelCreate = (model: any, data: any, options: any) => {
+  const modelCreate = (model: any, data: any, options?: any) => {
     const Model = models[model]
 
     if (Array.isArray(data)) {
@@ -25,9 +34,9 @@ export default function(app: Application) {
     return Model.create(data, options)
   }
 
-  const serviceCreate = (service: any, data: any, params: any) => {
+  const serviceCreate = (service: any, data: any, params?: any) => {
     if (Array.isArray(data)) {
-      return (Promise as any).each(data, (item: Partial<Model>) => app.service(service).create(item, params))
+      return Bluebird.each(data, (item: Partial<Model>) => app.service(service).create(item, params))
     }
 
     return app.service(service).create(data, params)

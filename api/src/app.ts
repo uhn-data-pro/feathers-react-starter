@@ -1,17 +1,16 @@
-import fs from 'fs'
-import path from 'path'
-
 import configuration from '@feathersjs/configuration'
 import express, { cors, errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
 import { feathers } from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio'
 import compress from 'compression'
 import { NextFunction, Request, Response } from 'express'
+import fs from 'fs'
 import helmet, { hsts, referrerPolicy } from 'helmet'
-import maxBy from 'lodash/maxBy'
+import { maxBy } from 'lodash'
 import moment from 'moment'
+import path from 'path'
 import favicon from 'serve-favicon'
-import winston, {createLogger, format, transports} from 'winston'
+import { createLogger, format as winstonFormat, transports as winstonTransports } from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
 
 import appHooks from './app.hooks'
@@ -23,11 +22,11 @@ import middleware from './middleware'
 import sequelize from './sequelize'
 import services from './services'
 
-// eslint-disable-next-line import/no-named-as-default-member
-const { printf } = winston.format
+const { printf } = winstonFormat
 
 // Set timezone
-process.env.TZ = 'America/New_York'
+process.env.TZ = process.env.TZ || 'America/New_York'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
 const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://127.0.0.1:4002'
 
@@ -47,17 +46,18 @@ const getLogFileName = (): string => {
   })
 
   //if most recent file is not from today, or not for this tag number, give default name to new logfile
-  if(mostRecentFile === undefined || mostRecentFile.indexOf(moment().format('YYYY-MM-DD')) == -1 || mostRecentFile.indexOf(GIT_TAG_NUMBER) == -1) {
+  if (mostRecentFile === undefined || mostRecentFile.indexOf(moment().format('YYYY-MM-DD')) == -1 || mostRecentFile.indexOf(GIT_TAG_NUMBER) == -1) {
     return `%DATE%_api_${GIT_TAG_NUMBER}_audit_logs.R0`
   }
+
   //otherwise just increment the number after 'R'
   let logFileNumber = parseInt(mostRecentFile.match(/(?<=\R)([0-9])+/)?.[0] ?? '0', 10)
   logFileNumber++
-  return `%DATE%_api_${ GIT_TAG_NUMBER }_audit_logs.R` + logFileNumber
+  return `%DATE%_api_${GIT_TAG_NUMBER}_audit_logs.R` + logFileNumber
 }
 
 //setup audit logger
-if(process.env.ENVIRONMENT === 'production') {
+if (process.env.ENVIRONMENT === 'production') {
   const format_options = printf((log: any) => {
     const { message, time } = log
 
@@ -87,31 +87,16 @@ if(process.env.ENVIRONMENT === 'production') {
   })
 }
 
-// setup ABSTRACT logger
-app.configure(() => {
-  const filename = process.env.ENVIRONMENT === 'production' ? 'abstract_logs.log' : 'abstract_dev.log'
-  const options = {
-    filename: app.get('static').fileBeatRoot + '/' + filename
-  }
-
-  app.set('abstractLogger', createLogger({
-    level: 'info',
-    format: format.json(),
-    transports: [
-      new (transports.File)(options)
-    ]
-  }))
-})
-
 // Enable security, CORS, compression, favicon and body parsing
 app.use(helmet())
 app.use(hsts({ maxAge: 31536000, preload: true }))
 app.use(referrerPolicy({ policy: 'no-referrer' }))
 app.use(cors({ origin: [ APP_BASE_URL ] }))
-app.use(compress())
+app.use(compress() as any)
 app.use(json())
 app.use(urlencoded({ extended: true }))
-app.use(favicon(path.join(app.get('public'), 'favicon.ico')))
+app.use(favicon(path.join(app.get('public'), 'favicon.ico')) as any)
+
 
 // Host the public folder
 app.use('/', serveStatic(app.get('public')))
@@ -128,7 +113,7 @@ app.configure(socketio({
 
 app.configure(sequelize)
 
-// Configure other middleware (see `middleware/index.ts`)
+// Configure other middleware (see `middleware/index.js`)
 app.configure(middleware)
 app.configure(authentication)
 
