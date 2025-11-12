@@ -1,8 +1,7 @@
 
 import Bluebird from 'bluebird'
-import { Model } from 'sequelize'
 
-import { Application } from '../../src/declarations'
+import { Application, ModelStatic } from '../../src/declarations'
 import { UserModel } from '../../src/models/declarations'
 
 // This is meant to protect prod, so we default to 'production' if not set to be safe
@@ -36,7 +35,7 @@ export default function(app: Application) {
 
   const serviceCreate = (service: any, data: any, params?: any) => {
     if (Array.isArray(data)) {
-      return Bluebird.each(data, (item: Partial<Model>) => app.service(service).create(item, params))
+      return (Bluebird as any).each(data, (item: Partial<ModelStatic<any>>) => app.service(service).create(item, params))
     }
 
     return app.service(service).create(data, params)

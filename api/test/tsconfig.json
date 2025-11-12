@@ -1,11 +1,9 @@
 {
   "extends": "..",
-  "ts-node": {
-    "transpileOnly": true
-  },
   "compilerOptions": {
     "composite": true,
     "rootDir": ".",
+    "outDir": "../lib/test"
   },
   "include": [
     "./**/*.ts"
@@ -13,6 +11,9 @@
   "references": [
     {
       "path": "../src"
+    },
+    {
+      "path": "../scripts"
     }
   ]
 }
