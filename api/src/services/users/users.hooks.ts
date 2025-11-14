@@ -12,7 +12,7 @@ const { hashPassword } = local.hooks
 import type { HookOptions, HookContext } from '../../declarations'
 import type { Users } from './users.class'
 
-const USER_SENSITIVE_FIELDS = ['password', 'participant.mrn', 'verifyToken', 'resetToken']
+const USER_SENSITIVE_FIELDS = ['password']
 
 const restrictToUser = () => async(context: HookContext) => {
   context.id = get(context.params, 'user.id')
@@ -43,12 +43,8 @@ const hooks: HookOptions<Users> = {
     create: [
       hashPassword('password')
     ],
-    update: [
-      hashPassword('password')
-    ],
-    patch: [
-      hashPassword('password')
-    ],
+    update: [],
+    patch: [],
     remove: [
       disallow('external')
     ]
@@ -58,7 +54,7 @@ const hooks: HookOptions<Users> = {
     all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      discard(...USER_SENSITIVE_FIELDS)
+      iff(isProvider('external'), discard(...USER_SENSITIVE_FIELDS))
     ],
     find: [],
     get: [],
