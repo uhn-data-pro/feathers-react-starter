@@ -1,8 +1,9 @@
 // Initializes the `registration` service on path `/registration`
 import { RegistrationService } from './registration.class'
-import hooks from './registration.hooks'
-import { Application } from '../../declarations'
 
+import hooks from './registration.hooks'
+
+import type { Application } from '../../declarations'
 
 // Add this service to the service type index
 declare module '../../declarations' {
@@ -11,7 +12,8 @@ declare module '../../declarations' {
   }
 }
 
-export default function(app: Application): void {
+export default function (app: Application) {
+
   // Initialize our service with any options it requires
   app.use('registration', new RegistrationService(app))
 

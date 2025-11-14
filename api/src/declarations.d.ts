@@ -1,15 +1,20 @@
+import type { AuthenticationConfiguration } from '@feathersjs/authentication'
 import { Application as ExpressFeathers } from '@feathersjs/express'
 import {
   HookContext as FeathersHookContext,
   HookOptions as FeathersHookOptions,
   NextFunction
 } from '@feathersjs/feathers'
-
-import { User } from './models/users.model'
-
-import type { BuildOptions, Model, Sequelize } from 'sequelize'
+import { PredicateFn } from 'feathers-hooks-common'
+import {
+  BuildOptions,
+  Model as SequelizeModel,
+  Sequelize,
+  Transaction
+} from 'sequelize'
 import type { Logger } from 'winston'
 
+import { UserModel } from './models/declarations'
 
 export { NextFunction }
 
@@ -37,9 +42,10 @@ export interface Configuration {
     dirname: string
   }
   auditLogger: Logger
-  abstractLogger: Logger
   sequelizeClient: Sequelize
   sequelizeSync: PromiseLike<Sequelize>
+
+  authentication: AuthenticationConfiguration
 }
 
 // The application instance type that will be used everywhere else
@@ -51,17 +57,20 @@ export type HookContext<S = any> = FeathersHookContext<Application, S>
 // The type for hook options - can be typed with a service class
 export type HookOptions<S = any> = FeathersHookOptions<Application, S>
 
+// The type for functions called as predicates in hooks - can be typed with a service class
+export type PredicateFunction<S = any> = PredicateFn<HookContext<S>>
+
 // A genetic type that allows adding an associate function when defining models.
 // Borrowed from https://stackoverflow.com/a/66033308
-export type DBModelStatic<T> = typeof Model
-  & { associate?: (models: Model[]) => void }
+export type ModelStatic<T> = typeof SequelizeModel
+  & { associate?: (models: Record<string, ModelStatic<any>>) => void }
   & { new(values?: Record<string, unknown>, options?: BuildOptions): T }
-
 
 // Add the user as an optional property to all params
 declare module '@feathersjs/feathers' {
   interface Params {
-    user?: User
+    user?: UserModel
+    transaction?: Transaction
   }
 }
 
@@ -84,3 +93,12 @@ declare global {
     }
   }
 }
+
+export type MailerData = {
+  html: string
+  text: string
+  from: string
+  fromName?: string
+  to: string
+  subject: string
+} & Record<string, unknown>

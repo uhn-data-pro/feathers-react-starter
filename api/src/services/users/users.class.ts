@@ -1,9 +1,8 @@
 import { SequelizeService } from 'feathers-sequelize'
 
-import { Application } from '../../declarations'
-
 import type { SequelizeAdapterOptions } from 'feathers-sequelize/src/declarations'
 
+import { Application } from '../../declarations'
 
 export class Users extends SequelizeService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
