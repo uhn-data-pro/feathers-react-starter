@@ -1,17 +1,17 @@
-import { Promise } from 'bluebird'
+import { Promise } from "bluebird"
 
-import { Application, DBModelStatic } from '../../src/declarations'
-import { User } from '../../src/models/users.model'
+import { Application, DBModelStatic } from "../../src/declarations"
+import { User } from "../../src/models/users.model"
 
 const users: Partial<User>[] = [
   {
-    email: 'admin@test.com',
-    password: 'password',
+    email: "admin@test.com",
+    password: "password",
   },
 ]
 
-export default function(app: Application) {
-  const db = app.get ('sequelizeClient')
+export default function (app: Application) {
+  const db = app.get("sequelizeClient")
   const models = db.models
 
   const modelCreate = (model: any, data: any, options: any) => {
@@ -26,15 +26,17 @@ export default function(app: Application) {
 
   const serviceCreate = (service: any, data: any, params: any) => {
     if (Array.isArray(data)) {
-      return (Promise as any).each(data, (item: Partial<DBModelStatic<any>>) => app.service(service).create(item, params))
+      return (Promise as any).each(data, (item: Partial<DBModelStatic<any>>) =>
+        app.service(service).create(item, params),
+      )
     }
 
     return app.service(service).create(data, params)
   }
 
-  console.log('Populating database with test data...')
+  console.log("Populating database with test data...")
 
-  return serviceCreate('users', users, {})
-    .then(() => console.log('Successfully populated database with test data'))
+  return serviceCreate("users", users, {})
+    .then(() => console.log("Successfully populated database with test data"))
     .catch((err: any) => console.error(err))
 }

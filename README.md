@@ -9,11 +9,13 @@ Download and install the docker community edition.
 ## Getting started
 
 Bring up the database first:
+
 ```
 docker-compose -f docker-compose.yml up -d --build postgres
 ```
 
 Bring up the backend (API) and front-end (APP):
+
 ```
 docker-compose -f docker-compose.yml up -d --build api app
 ```
@@ -21,21 +23,25 @@ docker-compose -f docker-compose.yml up -d --build api app
 Open up the browser to [localhost:4002](http://localhost:4002/)
 
 View logs:
+
 ```
 docker-compose -f docker-compose.yml logs --follow api app postgres
 ```
 
 Open postgres database:
+
 ```
 docker-compose -f docker-compose.yml exec postgres psql -U project-name project-name
 ```
 
 ## Customization and Production deployment
+
 Update `project-name` in the package.json and docker-compose yml files to desired project name.
 
 Update the variable `STARTER` with your desired project file system name (ex `VOXE` or `EASE`)
 
 For production deployment, assuming you have an SSL certificate and want to serve via HTTPS, update the `.env` to point the `API_BASE_URL` to your domain name and set the `API_PORT` to another port like `4003` so that we can have the server listen on `4001` instead.
+
 ```
 #######################
 # DOCKER CONFIGURATION #
@@ -45,7 +51,9 @@ API_PORT=4003
 APP_PORT=4002
 
 ```
+
 Then update the `docker-compose.yml` to specify where the APP will look for the API. This will remain on the same initial port of `4001` where the server is listening.
+
 ```
 app:
     build: ./app
@@ -64,8 +72,8 @@ app:
 
 ```
 
-
 Then setup the nginx config (`/etc/nginx/sites-available/default`) to point incoming server requests to the backend and front-end respectively, example below:
+
 ```
 server {
         listen 80;
@@ -100,6 +108,23 @@ server {
 ```
 
 ## Code Splitting
-Code splitting involves breaking down the bundle file into smaller-sized chunks. This can be advantageous in times when certain packages are updated/added, as the client only needs to redownload a certain chunk in their cache, rather than the entire bundle. 
+
+Code splitting involves breaking down the bundle file into smaller-sized chunks. This can be advantageous in times when certain packages are updated/added, as the client only needs to redownload a certain chunk in their cache, rather than the entire bundle.
 
 Prior to Webpack v4, this was accomplished with the `CommonsChunkPlugin`, which has since been deprecated and replaced with the `SplitChunksPlugin`. Documentation on code splitting can be found [here](https://webpack.js.org/plugins/split-chunks-plugin/).
+
+## Automatic Code Formatting
+
+When making commits from this repo, all code should format automatically. [Black](https://pypi.org/project/black/) is being used to format python and [Prettier](https://prettier.io) is being used for everything else. In order to make development easy and consistent, you can add extensions for these code formatters to your IDE.
+
+### Setup
+
+```
+cd <repo name>
+
+# Install packages necessary to run pre-commit hooks automatically
+yarn
+
+# Install packages necessary to format python files automatically
+pip3 install -r requirements.txt
+```

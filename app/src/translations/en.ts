@@ -1,31 +1,30 @@
 const en = {
-  translation: 
-  {
+  translation: {
     home: {
-      or: 'or'
+      or: "or",
     },
     login: {
-      alreadyHaveAccount: 'Already have an account?',
-      login: 'Login',
-      email: 'Email',
-      password: 'Password'
+      alreadyHaveAccount: "Already have an account?",
+      login: "Login",
+      email: "Email",
+      password: "Password",
     },
     register: {
-      newUser: 'Register as a new user',
-      confirmPassword: 'Confirm password',
-      signUp: 'Sign up',
+      newUser: "Register as a new user",
+      confirmPassword: "Confirm password",
+      signUp: "Sign up",
       errors: {
-        passwordsMatch: 'Please make sure your passwords match',
-        emailUsed: 'Sorry, this email has already been used'
-      }
+        passwordsMatch: "Please make sure your passwords match",
+        emailUsed: "Sorry, this email has already been used",
+      },
     },
     dashboard: {
-      loggedIn: 'Congrats, you\'re now logged in!'
+      loggedIn: "Congrats, you're now logged in!",
     },
     actions: {
-      logout: 'Logout'
-    }
-  }
+      logout: "Logout",
+    },
+  },
 }
-  
+
 export default en

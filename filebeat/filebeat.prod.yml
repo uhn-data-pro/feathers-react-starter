@@ -5,5 +5,5 @@ filebeat.inputs:
       - /usr/share/filebeat/logs/abstract_logs.log
 
 output.elasticsearch:
-  hosts: [ "Abstract.ca:443" ]
+  hosts: ["Abstract.ca:443"]
   protocol: "https"

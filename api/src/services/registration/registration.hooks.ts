@@ -1,10 +1,11 @@
-import * as local from '@feathersjs/authentication-local'
+import * as local from "@feathersjs/authentication-local"
 
 const { protect } = local.hooks
 
-import { RegistrationService } from './registration.class'
-import { HookOptions } from '../../declarations'
+import { RegistrationService } from "./registration.class"
+import { HookOptions } from "../../declarations"
 
+// prettier-ignore
 const hooks: HookOptions<RegistrationService> = {
   around: {
     all: [],

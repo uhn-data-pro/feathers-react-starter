@@ -1,21 +1,20 @@
-import * as feathersAuthentication from '@feathersjs/authentication'
-import * as local from '@feathersjs/authentication-local'
-import { disallow, iff, isProvider } from 'feathers-hooks-common'
-import get from 'lodash/get'
+import * as feathersAuthentication from "@feathersjs/authentication"
+import * as local from "@feathersjs/authentication-local"
+import { disallow, iff, isProvider } from "feathers-hooks-common"
+import get from "lodash/get"
 
-import { Users } from './users.class'
-import { HookContext, HookOptions } from '../../declarations'
-
+import { Users } from "./users.class"
+import { HookContext, HookOptions } from "../../declarations"
 
 const { authenticate } = feathersAuthentication.hooks
 const { hashPassword, protect } = local.hooks
 
-
-const restrictToUser = () => async(context: HookContext) => {
-  context.id = get(context.params, 'user.id')
+const restrictToUser = () => async (context: HookContext) => {
+  context.id = get(context.params, "user.id")
   return context
 }
 
+// prettier-ignore
 const hooks: HookOptions<Users> = {
   around: {
     all: [
@@ -35,7 +34,10 @@ const hooks: HookOptions<Users> = {
       disallow('external')
     ],
     get: [
-      iff(isProvider('external'), restrictToUser())
+      iff(
+        isProvider('external'), 
+        restrictToUser()
+      )
     ],
     create: [
       hashPassword('password')

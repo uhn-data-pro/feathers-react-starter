@@ -1,0 +1,5 @@
+.prettierrc
+node_modules/
+api/lib/
+api/static/
+audit_logs/
