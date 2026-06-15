@@ -1,7 +1,5 @@
 const fr = {
-  translation: {
-    
-  }
+  translation: {},
 }
-  
+
 export default fr

@@ -7,10 +7,10 @@ import {
   InferCreationAttributes,
   Model,
   ModelStatic,
-  Sequelize
-} from 'sequelize'
+  Sequelize,
+} from "sequelize"
 
-import { Application, DBModelStatic } from '../declarations'
+import { Application, DBModelStatic } from "../declarations"
 
 // See docs for using sequelize with Typescript
 // https://sequelize.org/docs/v6/other-topics/typescript/
@@ -22,9 +22,9 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare updated_at: CreationOptional<Date>
 }
 
-export default function(app: Application): ModelStatic<Model> {
-  const sequelizeClient: Sequelize = app.get('sequelizeClient')
-  const users = <DBModelStatic<User>>sequelizeClient.define('users', {
+export default function (app: Application): ModelStatic<Model> {
+  const sequelizeClient: Sequelize = app.get("sequelizeClient")
+  const users = <DBModelStatic<User>>sequelizeClient.define("users", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -33,19 +33,19 @@ export default function(app: Application): ModelStatic<Model> {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   })
 
   // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-  users.associate = function(models: Model[]): void {
+  users.associate = function (models: Model[]): void {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   }
 
   return users
-};
+}

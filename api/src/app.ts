@@ -1,35 +1,35 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 
-import configuration from '@feathersjs/configuration'
-import express, { cors, errorHandler, json, notFound, rest, serveStatic, urlencoded } from '@feathersjs/express'
-import { feathers } from '@feathersjs/feathers'
-import socketio from '@feathersjs/socketio'
-import compress from 'compression'
-import { NextFunction, Request, Response } from 'express'
-import helmet, { hsts, referrerPolicy } from 'helmet'
-import maxBy from 'lodash/maxBy'
-import moment from 'moment'
-import favicon from 'serve-favicon'
-import winston, {createLogger, format, transports} from 'winston'
-import DailyRotateFile from 'winston-daily-rotate-file'
+import configuration from "@feathersjs/configuration"
+import express, { cors, errorHandler, json, notFound, rest, serveStatic, urlencoded } from "@feathersjs/express"
+import { feathers } from "@feathersjs/feathers"
+import socketio from "@feathersjs/socketio"
+import compress from "compression"
+import { NextFunction, Request, Response } from "express"
+import helmet, { hsts, referrerPolicy } from "helmet"
+import maxBy from "lodash/maxBy"
+import moment from "moment"
+import favicon from "serve-favicon"
+import winston, { createLogger, format, transports } from "winston"
+import DailyRotateFile from "winston-daily-rotate-file"
 
-import appHooks from './app.hooks'
-import authentication from './authentication'
-import channels from './channels'
-import { Application } from './declarations'
-import logger from './logger'
-import middleware from './middleware'
-import sequelize from './sequelize'
-import services from './services'
+import appHooks from "./app.hooks"
+import authentication from "./authentication"
+import channels from "./channels"
+import { Application } from "./declarations"
+import logger from "./logger"
+import middleware from "./middleware"
+import sequelize from "./sequelize"
+import services from "./services"
 
 // eslint-disable-next-line import/no-named-as-default-member
 const { printf } = winston.format
 
 // Set timezone
-process.env.TZ = 'America/New_York'
-const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? 'develop'
-const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://127.0.0.1:4002'
+process.env.TZ = "America/New_York"
+const GIT_TAG_NUMBER = process.env.GIT_TAG_NUMBER ?? "develop"
+const APP_BASE_URL = process.env.APP_BASE_URL ?? "http://127.0.0.1:4002"
 
 const app: Application = express(feathers())
 
@@ -38,8 +38,7 @@ app.configure(configuration())
 
 //get filename for the audit log file to be created upon deploy
 const getLogFileName = (): string => {
-
-  const auditDir = app.get('audit').dirname
+  const auditDir = app.get("audit").dirname
   const logFiles = fs.readdirSync(auditDir)
   const mostRecentFile = maxBy(logFiles, (file: string) => {
     const fullPath = path.join(auditDir, file)
@@ -47,17 +46,21 @@ const getLogFileName = (): string => {
   })
 
   //if most recent file is not from today, or not for this tag number, give default name to new logfile
-  if(mostRecentFile === undefined || mostRecentFile.indexOf(moment().format('YYYY-MM-DD')) == -1 || mostRecentFile.indexOf(GIT_TAG_NUMBER) == -1) {
+  if (
+    mostRecentFile === undefined ||
+    mostRecentFile.indexOf(moment().format("YYYY-MM-DD")) == -1 ||
+    mostRecentFile.indexOf(GIT_TAG_NUMBER) == -1
+  ) {
     return `%DATE%_api_${GIT_TAG_NUMBER}_audit_logs.R0`
   }
   //otherwise just increment the number after 'R'
-  let logFileNumber = parseInt(mostRecentFile.match(/(?<=\R)([0-9])+/)?.[0] ?? '0', 10)
+  let logFileNumber = parseInt(mostRecentFile.match(/(?<=\R)([0-9])+/)?.[0] ?? "0", 10)
   logFileNumber++
-  return `%DATE%_api_${ GIT_TAG_NUMBER }_audit_logs.R` + logFileNumber
+  return `%DATE%_api_${GIT_TAG_NUMBER}_audit_logs.R` + logFileNumber
 }
 
 //setup audit logger
-if(process.env.ENVIRONMENT === 'production') {
+if (process.env.ENVIRONMENT === "production") {
   const format_options = printf((log: any) => {
     const { message, time } = log
 
@@ -65,66 +68,70 @@ if(process.env.ENVIRONMENT === 'production') {
   })
 
   // Instantiate audit logger
-  app.configure(function(app: Application) {
+  app.configure(function (app: Application) {
     const rotateFileTransport: DailyRotateFile = new DailyRotateFile({
       // Daily log files
-      datePattern: 'YYYY-MM-DD',
+      datePattern: "YYYY-MM-DD",
       filename: getLogFileName(),
-      dirname: app.get('audit').dirname,
+      dirname: app.get("audit").dirname,
       zippedArchive: true,
       maxSize: 5000000,
       // Do not delete any old files
       maxFiles: undefined,
-      options: { flags: 'a' }
+      options: { flags: "a" },
     })
 
-    app.set('auditLogger', createLogger({
-      format: format_options,
-      transports: [
-        rotateFileTransport
-      ]
-    }))
+    app.set(
+      "auditLogger",
+      createLogger({
+        format: format_options,
+        transports: [rotateFileTransport],
+      }),
+    )
   })
 }
 
 // setup ABSTRACT logger
 app.configure(() => {
-  const filename = process.env.ENVIRONMENT === 'production' ? 'abstract_logs.log' : 'abstract_dev.log'
+  const filename = process.env.ENVIRONMENT === "production" ? "abstract_logs.log" : "abstract_dev.log"
   const options = {
-    filename: app.get('static').fileBeatRoot + '/' + filename
+    filename: app.get("static").fileBeatRoot + "/" + filename,
   }
 
-  app.set('abstractLogger', createLogger({
-    level: 'info',
-    format: format.json(),
-    transports: [
-      new (transports.File)(options)
-    ]
-  }))
+  app.set(
+    "abstractLogger",
+    createLogger({
+      level: "info",
+      format: format.json(),
+      transports: [new transports.File(options)],
+    }),
+  )
 })
 
 // Enable security, CORS, compression, favicon and body parsing
 app.use(helmet())
 app.use(hsts({ maxAge: 31536000, preload: true }))
-app.use(referrerPolicy({ policy: 'no-referrer' }))
-app.use(cors({ origin: [ APP_BASE_URL ] }))
+app.use(referrerPolicy({ policy: "no-referrer" }))
+app.use(cors({ origin: [APP_BASE_URL] }))
 app.use(compress())
 app.use(json())
 app.use(urlencoded({ extended: true }))
-app.use(favicon(path.join(app.get('public'), 'favicon.ico')))
+app.use(favicon(path.join(app.get("public"), "favicon.ico")))
 
 // Host the public folder
-app.use('/', serveStatic(app.get('public')))
+app.use("/", serveStatic(app.get("public")))
 
 // Set up Plugins and providers
 app.configure(rest())
-app.configure(socketio({
-  cors: {
-    origin: APP_BASE_URL,
-    methods: [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS' ],
-    allowedHeaders: [ 'Authorization', 'Content-Type' ]
-  }
-}))
+app.configure(
+  socketio({
+    cors: {
+      origin: APP_BASE_URL,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Authorization", "Content-Type"],
+    },
+  }),
+)
 
 app.configure(sequelize)
 
@@ -139,19 +146,22 @@ app.configure(channels)
 
 // Configure a middleware for 404s and the error handler
 app.use(notFound())
-app.use(errorHandler({
-  html: false,
-  logger,
-  json: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    500: (err: any, req: Request, res: Response, next: NextFunction) => {      // All 500 errors are sent back to the client as 400 errors
-      err.code = 400
-      res.status(400)
-      res.set('Content-Type', 'application/json')
-      res.json(Object.assign({}, err.toJSON()))
-    }
-  }
-}))
+app.use(
+  errorHandler({
+    html: false,
+    logger,
+    json: {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      500: (err: any, req: Request, res: Response, next: NextFunction) => {
+        // All 500 errors are sent back to the client as 400 errors
+        err.code = 400
+        res.status(400)
+        res.set("Content-Type", "application/json")
+        res.json(Object.assign({}, err.toJSON()))
+      },
+    },
+  }),
+)
 
 app.hooks(appHooks)
 

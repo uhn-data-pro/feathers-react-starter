@@ -1,41 +1,40 @@
-import React, { createContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from "react"
 
-import app from 'STARTER/feathers-client'
+import app from "STARTER/feathers-client"
 
 export type AuthContextType = {
-  isAuthed: boolean,
-  isAuthLoading: boolean,
-  isLoginLoading: boolean,
-  authenticate : (options: authData) => Promise<void>,
-  user: user,
+  isAuthed: boolean
+  isAuthLoading: boolean
+  isLoginLoading: boolean
+  authenticate: (options: authData) => Promise<void>
+  user: user
   logout: () => void
 }
 
 export const AuthContext = createContext<AuthContextType>(null)
-AuthContext.displayName = 'AuthContext' // Show context name in React Dev Tools
+AuthContext.displayName = "AuthContext" // Show context name in React Dev Tools
 
-export type user = { id: string, email: string, role: string }
+export type user = { id: string; email: string; role: string }
 
-export type authData = { strategy: string, email: string, password: string }
+export type authData = { strategy: string; email: string; password: string }
 
 const AuthProvider = ({ children }) => {
-
   const [isAuthed, _setIsAuthed] = useState(false)
   const [isAuthLoading, setIsAuthLoading] = useState(true)
   const [isLoginLoading, setIsLoginLoading] = useState(false)
   const [user, setUser] = useState(null)
 
   const isAuthedRef = useRef(isAuthed)
-  const setIsAuthed = (isAuthed : boolean) => {
+  const setIsAuthed = (isAuthed: boolean) => {
     isAuthedRef.current = isAuthed
     _setIsAuthed(isAuthed)
   }
 
-  const authenticate = (options : authData) => {
+  const authenticate = (options: authData) => {
     return app
       .authenticate(options)
-      .then((auth : any) => loadUserData(auth.user))
-      .catch((error : Error) => {
+      .then((auth: any) => loadUserData(auth.user))
+      .catch((error: Error) => {
         setIsAuthed(false)
 
         // Propagate error forward so we can handle it in the login component
@@ -43,29 +42,26 @@ const AuthProvider = ({ children }) => {
       })
   }
 
-  const setAuthState = (authed : boolean) => {
+  const setAuthState = (authed: boolean) => {
     setIsAuthed(authed)
     setIsAuthLoading(false)
     setIsLoginLoading(false)
   }
 
-  const logout = ( ) => {
+  const logout = () => {
     app.logout().then(() => {
       setIsAuthed(false)
       setUser(null)
     })
   }
 
-  const loadUserData = (user : user) => {
+  const loadUserData = (user: user) => {
     setUser(user)
     setAuthState(true)
   }
 
   const login = () => {
-    Promise.all([
-      app.authentication.getAccessToken(),
-      app.authentication.getFromLocation(window.location)
-    ])
+    Promise.all([app.authentication.getAccessToken(), app.authentication.getFromLocation(window.location)])
       .then(([, windowToken]) => {
         if (windowToken) {
           return app.authentication.setAccessToken(windowToken)
@@ -80,23 +76,23 @@ const AuthProvider = ({ children }) => {
       })
   }
 
-  useEffect(() =>  {
-    if(!isAuthed && !isLoginLoading) {
+  useEffect(() => {
+    if (!isAuthed && !isLoginLoading) {
       setIsLoginLoading(true)
       login()
     }
   }, [isAuthed])
 
-
-  const defaultContext : AuthContextType = {
-    isAuthed, isAuthLoading, isLoginLoading, authenticate, user, logout
+  const defaultContext: AuthContextType = {
+    isAuthed,
+    isAuthLoading,
+    isLoginLoading,
+    authenticate,
+    user,
+    logout,
   }
 
-  return (
-    <AuthContext.Provider value={defaultContext}>
-      {children}
-    </AuthContext.Provider>
-  )
-} 
+  return <AuthContext.Provider value={defaultContext}>{children}</AuthContext.Provider>
+}
 
 export default AuthProvider
