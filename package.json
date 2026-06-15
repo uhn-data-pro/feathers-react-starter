@@ -9,6 +9,9 @@
   },
   "bugs": {},
   "scripts": {
+    "prepare": "husky",
+    "format": "prettier --ignore-unknown --write",
+    "lint-staged": "lint-staged",
     "lint:api": "docker-compose -f docker-compose.dev.yml run api npm run lint",
     "lint:app": "docker-compose -f docker-compose.dev.yml run app npm run lint",
     "lint": "npm run lint:api ; npm run lint:app",
@@ -23,6 +26,19 @@
     "migrate:create": "docker-compose -f docker-compose.dev.yml run --rm api npm run db:migrate:create --",
     "test:setup": "docker-compose -f docker-compose.test.yml up -d api-test",
     "test:run": "docker-compose -f docker-compose.test.yml run --rm api-test npm run mocha"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx,cjs,mjs,json,md,yml,yaml}": [
+      "yarn run format"
+    ],
+    "**/*.py": [
+      "black"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1"
   },
   "dependencies": {
     "node-base64-image": "^1.0.7",

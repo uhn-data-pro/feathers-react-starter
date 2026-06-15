@@ -9,55 +9,20 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "unused-imports"
-  ],
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript"
-  ],
+  "plugins": ["@typescript-eslint", "unused-imports"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/recommended", "plugin:import/typescript"],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ],
-    "eol-last":  [
-      "error",
-      "always"
-    ],
-    "no-multiple-empty-lines": [
-      "error",
-      { "max": 2, "maxEOF": 0 }
-    ],
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "never"],
+    "eol-last": ["error", "always"],
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0 }],
     "unused-imports/no-unused-imports": "error",
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          [
-            "index",
-            "sibling",
-            "parent",
-            "internal"
-          ],
-          "type"
-        ],
+        "groups": ["builtin", "external", ["index", "sibling", "parent", "internal"], "type"],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
@@ -74,10 +39,5 @@
       "node": true
     }
   },
-  "ignorePatterns": [
-    "dist/**",
-    "static/**",
-    "lib/**",
-    "node_modules/**"
-  ]
+  "ignorePatterns": ["dist/**", "static/**", "lib/**", "node_modules/**"]
 }

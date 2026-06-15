@@ -1,7 +1,8 @@
 // Application hooks that run for every service
-import { HookOptions } from './declarations'
-import { logger } from './hooks'
+import { HookOptions } from "./declarations"
+import { logger } from "./hooks"
 
+// prettier-ignore
 const hooks: HookOptions = {
   around: {
     all: [
