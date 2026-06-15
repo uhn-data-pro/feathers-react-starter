@@ -112,3 +112,19 @@ server {
 Code splitting involves breaking down the bundle file into smaller-sized chunks. This can be advantageous in times when certain packages are updated/added, as the client only needs to redownload a certain chunk in their cache, rather than the entire bundle.
 
 Prior to Webpack v4, this was accomplished with the `CommonsChunkPlugin`, which has since been deprecated and replaced with the `SplitChunksPlugin`. Documentation on code splitting can be found [here](https://webpack.js.org/plugins/split-chunks-plugin/).
+
+## Automatic Code Formatting
+
+When making commits from this repo, all code should format automatically. [Black](https://pypi.org/project/black/) is being used to format python and [Prettier](https://prettier.io) is being used for everything else. In order to make development easy and consistent, you can add extensions for these code formatters to your IDE.
+
+### Setup
+
+```
+cd <repo name>
+
+# Install packages necessary to run pre-commit hooks automatically
+yarn
+
+# Install packages necessary to format python files automatically
+pip3 install -r requirements.txt
+```
